@@ -22,10 +22,6 @@ final class CategoriesCell: UITableViewCell {
         configCell()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     // MARK: - Private function
     private func configCell() {
         let nib = UINib(nibName: "CategoryCell", bundle: .main)

@@ -21,6 +21,10 @@ final class HomeViewModel {
         return 2
     }
 
+    func numberOfRowsInSection(section: Int) -> Int {
+        return 1
+    }
+
     func heightCell(at indexPath: IndexPath) -> Int {
         guard let type = TypeCell(rawValue: indexPath.row) else {
             return 0

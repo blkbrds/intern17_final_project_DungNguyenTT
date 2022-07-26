@@ -23,10 +23,6 @@ final class SearchCell: UITableViewCell {
         configUI()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     // MARK: - Private function
     private func configUI() {
         self.titleLabel.numberOfLines = 0

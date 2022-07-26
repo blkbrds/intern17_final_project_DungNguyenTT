@@ -29,10 +29,8 @@ final class HomeViewController: ViewController {
 
     // MARK: - Config
     override func setupUI() {
-        let searchNib = UINib(nibName: "SearchCell", bundle: .main)
-        tableView.register(searchNib, forCellReuseIdentifier: "SearchCell")
-        let categoriesNib = UINib(nibName: "CategoriesCell", bundle: .main)
-        tableView.register(categoriesNib, forCellReuseIdentifier: "CategoriesCell")
+        tableView.register(SearchCell.self)
+        tableView.register(CategoriesCell.self)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -49,7 +47,10 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        guard let viewModel = viewModel else {
+            return 0
+        }
+        return viewModel.numberOfRowsInSection(section: 1)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,14 +59,10 @@ extension HomeViewController: UITableViewDataSource {
         }
         switch type {
         case .searchCell:
-            guard let searchCell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as? SearchCell else {
-                return UITableViewCell()
-            }
+            let searchCell = tableView.dequeue(SearchCell.self)
             return searchCell
         case .categoriesCell:
-            guard let categoriesCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesCell", for: indexPath) as? CategoriesCell  else {
-                return UITableViewCell()
-            }
+            let categoriesCell = tableView.dequeue(CategoriesCell.self)
             return categoriesCell
         }
     }
