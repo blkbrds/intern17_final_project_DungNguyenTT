@@ -10,12 +10,6 @@ import UIKit
 
 final class HomeViewController: ViewController {
 
-    // MARK: - Define
-    enum SectionType: Int {
-        case searchCell = 0
-        case categoriesCell
-    }
-
     // MARK: - IBOutlet
     @IBOutlet private weak var tableView: UITableView!
 
@@ -50,11 +44,11 @@ extension HomeViewController: UITableViewDataSource {
         guard let viewModel = viewModel else {
             return 0
         }
-        return viewModel.numberOfRowsInSection(section: 1)
+        return viewModel.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = SectionType(rawValue: indexPath.section) else {
+        guard let type = HomeViewModel.SectionType(rawValue: indexPath.section) else {
             return UITableViewCell()
         }
         switch type {

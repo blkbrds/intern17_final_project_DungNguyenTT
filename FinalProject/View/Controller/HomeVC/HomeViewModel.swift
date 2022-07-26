@@ -10,8 +10,13 @@ import Foundation
 
 final class HomeViewModel {
 
-    // MARK: - Define
+    // MARK: - Defines
     enum TypeCell: Int {
+        case searchCell = 0
+        case categoriesCell
+    }
+
+    enum SectionType: Int {
         case searchCell = 0
         case categoriesCell
     }
@@ -21,7 +26,7 @@ final class HomeViewModel {
         return 2
     }
 
-    func numberOfRowsInSection(section: Int) -> Int {
+    func numberOfRowsInSection() -> Int {
         return 1
     }
 
