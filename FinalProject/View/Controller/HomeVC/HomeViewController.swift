@@ -35,7 +35,7 @@ final class HomeViewController: ViewController {
 
     private func getCategory() {
         HUD.show()
-        viewModel?.getcategory(completion: { [weak self] result in
+        viewModel?.getCategory(completion: { [weak self] result in
             HUD.dismiss()
             guard let this = self else { return }
             switch result {
@@ -67,7 +67,7 @@ extension HomeViewController: UITableViewDataSource {
             return searchCell
         case .categoriesCell:
             let categoriesCell = tableView.dequeue(CategoriesCell.self)
-            categoriesCell.viewModel = viewModel?.viewModelForCollection()
+            categoriesCell.viewModel = viewModel?.viewModelForCategories()
             return categoriesCell
         }
     }

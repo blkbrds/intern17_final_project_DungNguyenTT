@@ -40,20 +40,23 @@ final class HomeViewModel {
         }
     }
 
-    func getcategory(completion: @escaping APICompletion) {
+    func getCategory(completion: @escaping APICompletion) {
         HomeService.getCategories { [weak self] result in
-            guard let this = self else { return }
-            switch result {
-            case .success(let categories):
-                this.categories = categories
-                completion(.success)
-            case .failure(let error):
-                completion(.failure(error))
+            if let this = self {
+                switch result {
+                case .success(let categories):
+                    this.categories = categories
+                    completion(.success)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            } else {
+                return
             }
         }
     }
 
-    func viewModelForCollection() -> CategoriesCellViewModel {
+    func viewModelForCategories() -> CategoriesCellViewModel {
         return CategoriesCellViewModel(categories: categories)
     }
 }

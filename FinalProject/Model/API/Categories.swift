@@ -10,11 +10,11 @@ import Foundation
 
 final class Categories {
 
-    var strCategory: String?
-    var strCategoryThumb: String?
+    var name: String?
+    var thumb: String?
 
     init(json: JSObject) {
-        strCategory = json["strCategory"] as? String
-        strCategoryThumb = json["strCategoryThumb"] as? String
+        name = json["strCategory"] as? String
+        thumb = json["strCategoryThumb"] as? String
     }
 }

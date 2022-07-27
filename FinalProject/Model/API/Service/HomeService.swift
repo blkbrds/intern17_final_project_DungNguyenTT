@@ -21,6 +21,8 @@ final class HomeService {
                         category.append(Categories(json: item))
                     }
                     completion(.success(category))
+                } else {
+                    return
                 }
             case .failure(let error):
                 completion(.failure(error))
