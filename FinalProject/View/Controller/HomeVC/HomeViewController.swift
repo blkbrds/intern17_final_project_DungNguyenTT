@@ -28,27 +28,37 @@ final class HomeViewController: ViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+
+    override func setupData() {
+        getCategory()
+    }
+
+    private func getCategory() {
+        HUD.show()
+        viewModel?.getcategory(completion: { [weak self] result in
+            HUD.dismiss()
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    this.tableView.reloadData()
+                }
+            case .failure(let error):
+                this.alert(msg: error.localizedDescription, handler: nil)
+            }
+        })
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension HomeViewController: UITableViewDataSource {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
-        return viewModel.numberOfSections()
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
-        return viewModel.numberOfRowsInSection()
+        return viewModel?.numberOfRowsInSection() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = HomeViewModel.SectionType(rawValue: indexPath.section) else {
+        guard let type = HomeViewModel.RowType(rawValue: indexPath.row) else {
             return UITableViewCell()
         }
         switch type {
@@ -57,6 +67,7 @@ extension HomeViewController: UITableViewDataSource {
             return searchCell
         case .categoriesCell:
             let categoriesCell = tableView.dequeue(CategoriesCell.self)
+            categoriesCell.viewModel = viewModel?.viewModelForCollection()
             return categoriesCell
         }
     }
@@ -69,6 +80,6 @@ extension HomeViewController: UITableViewDelegate {
         guard let viewModel = viewModel else {
             return 0
         }
-        return CGFloat(viewModel.heightCell(at: indexPath))
+        return CGFloat(viewModel.heightForRow(at: indexPath))
     }
 }

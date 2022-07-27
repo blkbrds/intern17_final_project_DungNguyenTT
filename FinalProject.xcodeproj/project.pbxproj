@@ -21,6 +21,8 @@
 		5E1C5456288F798D003CAD29 /* RecipesCellViewModel..swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5455288F798D003CAD29 /* RecipesCellViewModel..swift */; };
 		5E1C545B288F7A10003CAD29 /* CategoryRecipesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5459288F7A10003CAD29 /* CategoryRecipesCell.swift */; };
 		5E1C545C288F7A10003CAD29 /* CategoryRecipesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */; };
+		5E1C5472288F9268003CAD29 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5471288F9268003CAD29 /* Categories.swift */; };
+		5E1C5477288F9A3E003CAD29 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5476288F9A3E003CAD29 /* HomeService.swift */; };
 		5EA838B8288E2E2C003017B4 /* SearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */; };
 		5EA838BC288E2E6D003017B4 /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */; };
 		5EA838C0288E2E79003017B4 /* CategoriesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */; };
@@ -83,6 +85,8 @@
 		5E1C5455288F798D003CAD29 /* RecipesCellViewModel..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCellViewModel..swift; sourceTree = "<group>"; };
 		5E1C5459288F7A10003CAD29 /* CategoryRecipesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipesCell.swift; sourceTree = "<group>"; };
 		5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryRecipesCell.xib; sourceTree = "<group>"; };
+		5E1C5471288F9268003CAD29 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		5E1C5476288F9A3E003CAD29 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellViewModel.swift; sourceTree = "<group>"; };
@@ -217,6 +221,14 @@
 			path = RecipeCell;
 			sourceTree = "<group>";
 		};
+		5E1C5475288F9A08003CAD29 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5E1C5476288F9A3E003CAD29 /* HomeService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		5EA838E7288E7446003017B4 /* CategoryRecipesCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,7 +262,9 @@
 		6AF60D672313B56B00F5CBA2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				5E1C5475288F9A08003CAD29 /* Service */,
 				6AF60D692313B56B00F5CBA2 /* Core */,
+				5E1C5471288F9268003CAD29 /* Categories.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -573,6 +587,7 @@
 				6AF60E132313B9C000F5CBA2 /* NSErrorExt.swift in Sources */,
 				6AF613B72313C13A00F5CBA2 /* CollectionView.swift in Sources */,
 				5E1C5456288F798D003CAD29 /* RecipesCellViewModel..swift in Sources */,
+				5E1C5472288F9268003CAD29 /* Categories.swift in Sources */,
 				6AFD0303231375EE004940FA /* AppDelegate.swift in Sources */,
 				6AF613B02313C13A00F5CBA2 /* CollectionCell.swift in Sources */,
 				6AF60DC52313B56B00F5CBA2 /* ApiManager.swift in Sources */,
@@ -584,6 +599,7 @@
 				6AF613B12313C13A00F5CBA2 /* CollectionViewHeaderView.swift in Sources */,
 				5E0DBC7B288AA58400DC28E9 /* CategoryCell.swift in Sources */,
 				6AF60E1E2313B9C000F5CBA2 /* UIViewControllerExt.swift in Sources */,
+				5E1C5477288F9A3E003CAD29 /* HomeService.swift in Sources */,
 				5E0DBC5D288A899600DC28E9 /* HomeViewController.swift in Sources */,
 				6AF60D082313B31200F5CBA2 /* App.swift in Sources */,
 				5EA838BC288E2E6D003017B4 /* CategoryCellViewModel.swift in Sources */,
