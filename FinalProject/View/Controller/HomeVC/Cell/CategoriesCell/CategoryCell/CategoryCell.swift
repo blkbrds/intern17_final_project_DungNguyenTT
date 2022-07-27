@@ -29,7 +29,7 @@ final class CategorieCell: UICollectionViewCell {
     private func updateView() {
         guard let viewModel = viewModel else { return }
         categorieLabel.text = viewModel.item.name
-        guard let urlString = viewModel.item.thumb else { return }
+        let urlString = viewModel.item.thumb.unwrapped(or: "")
         imageView.downloadImage(url: urlString) { (image) in
             self.imageView.image = image
         }

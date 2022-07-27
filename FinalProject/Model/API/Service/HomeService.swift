@@ -22,7 +22,7 @@ final class HomeService {
                     }
                     completion(.success(category))
                 } else {
-                    return
+                    completion(.failure(Api.Error.json))
                 }
             case .failure(let error):
                 completion(.failure(error))

@@ -23,6 +23,7 @@
 		5E1C545C288F7A10003CAD29 /* CategoryRecipesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */; };
 		5E1C5472288F9268003CAD29 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5471288F9268003CAD29 /* Categories.swift */; };
 		5E1C5477288F9A3E003CAD29 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5476288F9A3E003CAD29 /* HomeService.swift */; };
+		5E4506DE2890F41D0013B25A /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4506DD2890F41D0013B25A /* Optional.swift */; };
 		5EA838B8288E2E2C003017B4 /* SearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */; };
 		5EA838BC288E2E6D003017B4 /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */; };
 		5EA838C0288E2E79003017B4 /* CategoriesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */; };
@@ -87,6 +88,7 @@
 		5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryRecipesCell.xib; sourceTree = "<group>"; };
 		5E1C5471288F9268003CAD29 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		5E1C5476288F9A3E003CAD29 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		5E4506DD2890F41D0013B25A /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellViewModel.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				6AF611672313C13800F5CBA2 /* TableCell.swift */,
 				6AF6116C2313C13800F5CBA2 /* ImageView.swift */,
 				6AF6116F2313C13800F5CBA2 /* Button.swift */,
+				5E4506DD2890F41D0013B25A /* Optional.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				6AF60DC62313B56B00F5CBA2 /* ResponseSerializer.swift in Sources */,
 				6AF60D192313B35800F5CBA2 /* Errors.swift in Sources */,
 				6AF613BF2313C13A00F5CBA2 /* ScrollView.swift in Sources */,
+				5E4506DE2890F41D0013B25A /* Optional.swift in Sources */,
 				5E1C5451288F7967003CAD29 /* RecipesCell.swift in Sources */,
 				6AF60D222313B35800F5CBA2 /* String.swift in Sources */,
 				6AF60DC22313B56B00F5CBA2 /* RequestSerializer.swift in Sources */,

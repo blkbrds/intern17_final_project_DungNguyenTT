@@ -42,16 +42,16 @@ final class HomeViewModel {
 
     func getCategory(completion: @escaping APICompletion) {
         HomeService.getCategories { [weak self] result in
-            if let this = self {
-                switch result {
-                case .success(let categories):
-                    this.categories = categories
-                    completion(.success)
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            } else {
+            guard let this = self else {
+                completion(.failure(Api.Error.unexpectIssued))
                 return
+            }
+            switch result {
+            case .success(let categories):
+                this.categories = categories
+                completion(.success)
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
