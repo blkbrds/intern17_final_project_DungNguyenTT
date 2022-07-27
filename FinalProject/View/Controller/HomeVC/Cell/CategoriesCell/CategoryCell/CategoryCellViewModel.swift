@@ -9,4 +9,11 @@
 import Foundation
 
 final class CategotyCellViewModel {
+
+    // MARK: - Property
+    private(set) var item: Categories
+
+    init(item: Categories) {
+        self.item = item
+    }
 }

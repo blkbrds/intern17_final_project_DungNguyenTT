@@ -15,9 +15,23 @@ final class CategorieCell: UICollectionViewCell {
     @IBOutlet private weak var categorieLabel: UILabel!
 
     // MARK: - Property
-    var viewModel: CategotyCellViewModel?
+    var viewModel: CategotyCellViewModel? {
+        didSet {
+            updateView()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+
+    // MARK: - Private function
+    private func updateView() {
+        guard let viewModel = viewModel else { return }
+        categorieLabel.text = viewModel.item.name
+        let urlString = viewModel.item.thumb.unwrapped(or: "")
+        imageView.downloadImage(url: urlString) { (image) in
+            self.imageView.image = image
+        }
     }
 }

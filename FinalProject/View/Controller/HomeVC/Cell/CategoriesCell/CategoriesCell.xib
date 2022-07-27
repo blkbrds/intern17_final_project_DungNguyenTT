@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QzW-zx-8As">
-                        <rect key="frame" x="20" y="0.0" width="280" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bWA-qE-G6v">
                             <size key="itemSize" width="128" height="128"/>
@@ -31,8 +31,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="QzW-zx-8As" secondAttribute="bottom" id="9Tz-W7-u6l"/>
-                    <constraint firstItem="QzW-zx-8As" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="PUZ-oo-gZY"/>
-                    <constraint firstAttribute="trailing" secondItem="QzW-zx-8As" secondAttribute="trailing" constant="20" id="ZWc-hU-UJG"/>
+                    <constraint firstItem="QzW-zx-8As" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PUZ-oo-gZY"/>
+                    <constraint firstAttribute="trailing" secondItem="QzW-zx-8As" secondAttribute="trailing" id="ZWc-hU-UJG"/>
                     <constraint firstItem="QzW-zx-8As" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x7g-Zk-Ati"/>
                 </constraints>
             </tableViewCellContentView>

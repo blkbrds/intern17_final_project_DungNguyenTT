@@ -9,4 +9,20 @@
 import Foundation
 
 final class CategoriesCellViewModel {
+
+    // MARK: - Property
+    private var categories: [Categories] = []
+
+    init(categories: [Categories]) {
+        self.categories = categories
+    }
+
+    // MARK: - Functions
+    func numberOfItemsInSection() -> Int {
+        return categories.count
+    }
+
+    func viewModelForItem(at indexPath: IndexPath) -> CategotyCellViewModel {
+        return CategotyCellViewModel(item: categories[indexPath.row])
+    }
 }
