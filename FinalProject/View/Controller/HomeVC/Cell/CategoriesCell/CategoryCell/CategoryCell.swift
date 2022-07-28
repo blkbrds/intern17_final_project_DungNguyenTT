@@ -13,8 +13,9 @@ final class CategorieCell: UICollectionViewCell {
     // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var categorieLabel: UILabel!
+    @IBOutlet private weak var viewImage: UIView!
 
-    // MARK: - Property
+    // MARK: - Properties
     var viewModel: CategotyCellViewModel? {
         didSet {
             updateView()
@@ -23,6 +24,7 @@ final class CategorieCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        viewImage.layer.masksToBounds = false
     }
 
     // MARK: - Private function

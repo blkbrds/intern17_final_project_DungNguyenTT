@@ -10,6 +10,12 @@ import UIKit
 
 final class RecipesCell: UICollectionViewCell {
 
+    // MARK: - IBOutlets
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var areaLabel: UILabel!
+
+    // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
     }

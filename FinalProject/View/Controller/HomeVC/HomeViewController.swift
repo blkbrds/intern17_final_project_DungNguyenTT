@@ -10,10 +10,10 @@ import UIKit
 
 final class HomeViewController: ViewController {
 
-    // MARK: - IBOutlet
+    // MARK: - IBOutlets
     @IBOutlet private weak var tableView: UITableView!
 
-    // MARK: - Property
+    // MARK: - Properties
     var viewModel: HomeViewModel?
 
     // MARK: - Life cycle
@@ -25,6 +25,8 @@ final class HomeViewController: ViewController {
     override func setupUI() {
         tableView.register(SearchCell.self)
         tableView.register(CategoriesCell.self)
+        tableView.register(CategoryRecipesCell.self)
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -33,6 +35,7 @@ final class HomeViewController: ViewController {
         getCategory()
     }
 
+    // MARK: - Private functions
     private func getCategory() {
         HUD.show()
         viewModel?.getCategory(completion: { [weak self] result in
@@ -69,6 +72,9 @@ extension HomeViewController: UITableViewDataSource {
             let categoriesCell = tableView.dequeue(CategoriesCell.self)
             categoriesCell.viewModel = viewModel?.viewModelForCategories()
             return categoriesCell
+        case .recipesCell:
+            let recipesCell = tableView.dequeue(CategoryRecipesCell.self)
+            return recipesCell
         }
     }
 }

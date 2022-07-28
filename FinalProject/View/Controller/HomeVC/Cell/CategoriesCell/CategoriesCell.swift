@@ -10,10 +10,10 @@ import UIKit
 
 final class CategoriesCell: UITableViewCell {
 
-    // MARK: - IBOutlet
+    // MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
 
-    // MARK: - Property
+    // MARK: - Properties
     var viewModel: CategoriesCellViewModel? {
         didSet {
             collectionView.reloadData()
@@ -26,7 +26,7 @@ final class CategoriesCell: UITableViewCell {
         configCell()
     }
 
-    // MARK: - Private function
+    // MARK: - Private functions
     private func configCell() {
         let nib = UINib(nibName: "CategoryCell", bundle: .main)
         collectionView.register(nib, forCellWithReuseIdentifier: "cell")
@@ -36,7 +36,7 @@ final class CategoriesCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0.0, right: 20)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
 }
 

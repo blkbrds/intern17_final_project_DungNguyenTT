@@ -17,6 +17,7 @@ final class HomeViewModel {
     enum RowType: Int, CaseIterable {
         case searchCell = 0
         case categoriesCell
+        case recipesCell
     }
 
     // MARK: - Functions
@@ -37,6 +38,8 @@ final class HomeViewModel {
             return 130
         case .categoriesCell:
             return 100
+        case . recipesCell:
+            return 920
         }
     }
 

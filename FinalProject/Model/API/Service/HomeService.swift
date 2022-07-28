@@ -11,7 +11,7 @@ import Foundation
 final class HomeService {
 
     class func getCategories(completion: @escaping Completion<[Categories]>) {
-        let urlString = "https://www.themealdb.com/api/json/v1/1/categories.php"
+        let urlString = Api.Path.categotyPath
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case .success(let data):

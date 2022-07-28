@@ -12,7 +12,8 @@ import Alamofire
 final class Api {
 
     struct Path {
-        static let baseURL = "https://"
+        static let baseURL = "https://www.themealdb.com/api/json/v1/1/"
+        static let categotyPath = baseURL + "categories.php"
     }
 }
 

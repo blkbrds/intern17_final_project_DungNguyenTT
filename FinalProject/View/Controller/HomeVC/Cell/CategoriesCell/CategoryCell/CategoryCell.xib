@@ -11,21 +11,49 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CategorieCell" customModule="FinalProject" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="65" height="101"/>
+            <rect key="frame" x="0.0" y="0.0" width="85" height="102"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="65" height="101"/>
+                <rect key="frame" x="0.0" y="0.0" width="85" height="102"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N7H-6e-rIU">
-                        <rect key="frame" x="0.0" y="0.0" width="65" height="70"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SQ-Cp-U6o">
+                        <rect key="frame" x="0.0" y="0.0" width="85" height="70"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2022-07-26 at 5.25.52 PM" translatesAutoresizingMaskIntoConstraints="NO" id="N7H-6e-rIU">
+                                <rect key="frame" x="17.5" y="10" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="HS3-Jz-xyg"/>
+                                    <constraint firstAttribute="width" constant="50" id="iZe-Gg-YRw"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="70" id="4KX-OZ-zZk"/>
+                            <constraint firstItem="N7H-6e-rIU" firstAttribute="centerY" secondItem="5SQ-Cp-U6o" secondAttribute="centerY" id="3Uc-Eb-vHZ"/>
+                            <constraint firstAttribute="height" constant="70" id="5Ia-vC-El0"/>
+                            <constraint firstItem="N7H-6e-rIU" firstAttribute="centerX" secondItem="5SQ-Cp-U6o" secondAttribute="centerX" id="7SV-fA-dBP"/>
                         </constraints>
-                    </imageView>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" systemColor="systemGray3Color"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-lz-8Bo">
-                        <rect key="frame" x="0.0" y="75" width="65" height="26"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="0.0" y="75" width="85" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -34,19 +62,26 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="ivn-lz-8Bo" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="25P-gu-xiz"/>
-                <constraint firstItem="ivn-lz-8Bo" firstAttribute="top" secondItem="N7H-6e-rIU" secondAttribute="bottom" constant="5" id="7Ue-tY-kne"/>
-                <constraint firstAttribute="trailing" secondItem="N7H-6e-rIU" secondAttribute="trailing" id="9cx-7a-ioM"/>
+                <constraint firstItem="5SQ-Cp-U6o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DZP-5J-8GA"/>
                 <constraint firstAttribute="trailing" secondItem="ivn-lz-8Bo" secondAttribute="trailing" id="Gdo-Dc-9qm"/>
-                <constraint firstItem="N7H-6e-rIU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Wiw-3G-9Fj"/>
+                <constraint firstItem="ivn-lz-8Bo" firstAttribute="top" secondItem="5SQ-Cp-U6o" secondAttribute="bottom" constant="5" id="Me3-Sc-fwn"/>
+                <constraint firstItem="5SQ-Cp-U6o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZLx-9I-6RU"/>
+                <constraint firstAttribute="trailing" secondItem="5SQ-Cp-U6o" secondAttribute="trailing" id="oXp-89-VFM"/>
                 <constraint firstAttribute="bottom" secondItem="ivn-lz-8Bo" secondAttribute="bottom" id="pKo-pZ-SNp"/>
-                <constraint firstItem="N7H-6e-rIU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="x8o-kC-bVm"/>
             </constraints>
-            <size key="customSize" width="65" height="101"/>
+            <size key="customSize" width="85" height="102"/>
             <connections>
                 <outlet property="categorieLabel" destination="ivn-lz-8Bo" id="Vzg-WI-iJ8"/>
                 <outlet property="imageView" destination="N7H-6e-rIU" id="q9H-md-cKy"/>
+                <outlet property="viewImage" destination="5SQ-Cp-U6o" id="y0G-r4-asR"/>
             </connections>
-            <point key="canvasLocation" x="51.449275362318843" y="143.63839285714286"/>
+            <point key="canvasLocation" x="-187.68115942028987" y="-57.589285714285708"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="Screen Shot 2022-07-26 at 5.25.52 PM" width="654" height="653"/>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

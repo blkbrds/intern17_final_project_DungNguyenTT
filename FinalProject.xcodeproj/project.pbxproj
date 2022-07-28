@@ -213,14 +213,14 @@
 			path = CategoryCell;
 			sourceTree = "<group>";
 		};
-		5E1C544C288F78D8003CAD29 /* RecipeCell */ = {
+		5E1C544C288F78D8003CAD29 /* RecipesCell */ = {
 			isa = PBXGroup;
 			children = (
 				5E1C544F288F7967003CAD29 /* RecipesCell.swift */,
 				5E1C5450288F7967003CAD29 /* RecipesCell.xib */,
 				5E1C5455288F798D003CAD29 /* RecipesCellViewModel..swift */,
 			);
-			path = RecipeCell;
+			path = RecipesCell;
 			sourceTree = "<group>";
 		};
 		5E1C5475288F9A08003CAD29 /* Service */ = {
@@ -234,7 +234,7 @@
 		5EA838E7288E7446003017B4 /* CategoryRecipesCell */ = {
 			isa = PBXGroup;
 			children = (
-				5E1C544C288F78D8003CAD29 /* RecipeCell */,
+				5E1C544C288F78D8003CAD29 /* RecipesCell */,
 				5E1C5459288F7A10003CAD29 /* CategoryRecipesCell.swift */,
 				5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */,
 				5EA838EE288E749F003017B4 /* CategoryRecipesCellViewModel.swift */,
