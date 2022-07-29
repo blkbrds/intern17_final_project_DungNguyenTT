@@ -15,8 +15,25 @@ final class RecipesCell: UICollectionViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
 
+    // MARK: - Properties
+    var viewModel: RecipesCellViewModel? {
+        didSet {
+            updateCell()
+        }
+    }
+
     // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+
+    // MARK: - Private functions
+    private func updateCell() {
+        guard let viewModel = viewModel else { return }
+        nameLabel.text = viewModel.item.meal
+        let urlString = viewModel.item.mealThumb.unwrapped(or: "")
+        imageView.downloadImage(url: urlString) { (image) in
+            self.imageView.image = image
+        }
     }
 }

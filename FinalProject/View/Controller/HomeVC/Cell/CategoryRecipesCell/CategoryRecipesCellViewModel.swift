@@ -9,4 +9,20 @@
 import Foundation
 
 final class CategoryRecipesCellViewModel {
+
+    // MARK: - Properties
+    private(set) var meals: [FilterByCategories] = []
+
+    init(meals: [FilterByCategories]) {
+        self.meals = meals
+    }
+
+    // MARK: - Public functions
+    func numberOfItemsInSection() -> Int {
+        return meals.count
+    }
+
+    func viewModelForItem(at indexPath: IndexPath) -> RecipesCellViewModel {
+        return RecipesCellViewModel(item: meals[indexPath.row])
+    }
 }

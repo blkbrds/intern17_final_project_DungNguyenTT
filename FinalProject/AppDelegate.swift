@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 
 typealias HUD = SVProgressHUD
+let screenHeight = UIScreen.main.bounds.height
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

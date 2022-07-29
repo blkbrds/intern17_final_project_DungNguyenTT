@@ -43,11 +43,13 @@ final class CategoryRecipesCell: UITableViewCell {
 extension CategoryRecipesCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return viewModel?.numberOfItemsInSection() ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(RecipesCell.self, forIndexPath: indexPath)
+        guard let viewModel = viewModel else { return UICollectionViewCell() }
+        cell.viewModel = viewModel.viewModelForItem(at: indexPath)
         return cell
     }
 }
@@ -56,7 +58,15 @@ extension CategoryRecipesCell: UICollectionViewDataSource {
 extension CategoryRecipesCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sreenWitdh = UIScreen.main.bounds.width - 60
-        return CGSize(width: sreenWitdh / 2, height: (sreenWitdh / 3) * 4 / 2)
+        return CGSize(width: Config.widthOfItem, height: Config.heightOfItem)
+    }
+}
+
+// MARK: - CategoryRecipesCell
+extension CategoryRecipesCell {
+
+    struct Config {
+        static let widthOfItem: CGFloat = (UIScreen.main.bounds.width - 60) / 2
+        static let heightOfItem: CGFloat = UIScreen.main.bounds.height / 3.5
     }
 }

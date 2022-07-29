@@ -21,9 +21,9 @@ extension UIImageView {
             let config = URLSessionConfiguration.default
             config.waitsForConnectivity = true
             let session = URLSession(configuration: config)
-            let task = session.dataTask(with: url) { (data, _, error) in
+            let task = session.dataTask(with: url) { (data, response, error) in
                 DispatchQueue.main.async {
-                    if let _ = error {
+                    if error != nil {
                         completion(nil)
                     } else {
                         if let data = data {

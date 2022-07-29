@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol CategoriesCellDelegate: class {
+    func cell(_ cell: CategoriesCell, needPerformAction action: CategoriesCell.Action)
+}
+
 final class CategoriesCell: UITableViewCell {
+
+    enum Action {
+        case loadNewRecipes(name: String)
+    }
 
     // MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -19,6 +27,8 @@ final class CategoriesCell: UITableViewCell {
             collectionView.reloadData()
         }
     }
+
+    weak var detegate: CategoriesCellDelegate?
 
     // MARL: - Life cycle
     override func awakeFromNib() {
@@ -55,7 +65,15 @@ extension CategoriesCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.viewModel = viewModel.viewModelForItem(at: indexPath)
+        cell.delegate = self
         return cell
+    }
+}
+
+extension CategoriesCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+        detegate?.cell(self, needPerformAction: .loadNewRecipes(name: viewModel.getNameCategory(at: indexPath)))
     }
 }
 
@@ -63,7 +81,26 @@ extension CategoriesCell: UICollectionViewDataSource {
 extension CategoriesCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screenWidth = UIScreen.main.bounds.width - 20
-        return CGSize(width: screenWidth / 5, height: (screenWidth / 5) * 7 / 5)
+        return CGSize(width: Config.widthOfItem, height: Config.heightOfItem)
+    }
+}
+
+// MARK: - CategoriesCell
+extension CategoriesCell {
+
+    struct Config {
+        static let widthOfItem: CGFloat = (UIScreen.main.bounds.width - 20) / 5
+        static let heightOfItem: CGFloat = UIScreen.main.bounds.height / 7
+    }
+}
+
+extension CategoriesCell: CategoryCellDelegate {
+
+    func cell(_ cell: CategorieCell, needPerformAction action: CategorieCell.Action) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        switch action {
+        case .updateCategory:
+            guard let viewModel = viewModel else { return }
+        }
     }
 }

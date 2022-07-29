@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,8 +24,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2022-07-26 at 5.25.52 PM" translatesAutoresizingMaskIntoConstraints="NO" id="N7H-6e-rIU">
                                 <rect key="frame" x="17.5" y="10" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="HS3-Jz-xyg"/>
-                                    <constraint firstAttribute="width" constant="50" id="iZe-Gg-YRw"/>
+                                    <constraint firstAttribute="width" secondItem="N7H-6e-rIU" secondAttribute="height" multiplier="1:1" id="Y2U-xV-XOe"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -36,8 +36,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="N7H-6e-rIU" firstAttribute="centerY" secondItem="5SQ-Cp-U6o" secondAttribute="centerY" id="3Uc-Eb-vHZ"/>
-                            <constraint firstAttribute="height" constant="70" id="5Ia-vC-El0"/>
                             <constraint firstItem="N7H-6e-rIU" firstAttribute="centerX" secondItem="5SQ-Cp-U6o" secondAttribute="centerX" id="7SV-fA-dBP"/>
+                            <constraint firstItem="N7H-6e-rIU" firstAttribute="height" secondItem="5SQ-Cp-U6o" secondAttribute="height" multiplier="0.714286" id="rsJ-li-6Gy"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -52,7 +52,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-lz-8Bo">
-                        <rect key="frame" x="0.0" y="75" width="85" height="27"/>
+                        <rect key="frame" x="0.0" y="75" width="85" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,13 +61,13 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="5SQ-Cp-U6o" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.686275" id="1YT-IU-cC5"/>
                 <constraint firstItem="ivn-lz-8Bo" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="25P-gu-xiz"/>
                 <constraint firstItem="5SQ-Cp-U6o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DZP-5J-8GA"/>
                 <constraint firstAttribute="trailing" secondItem="ivn-lz-8Bo" secondAttribute="trailing" id="Gdo-Dc-9qm"/>
                 <constraint firstItem="ivn-lz-8Bo" firstAttribute="top" secondItem="5SQ-Cp-U6o" secondAttribute="bottom" constant="5" id="Me3-Sc-fwn"/>
                 <constraint firstItem="5SQ-Cp-U6o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZLx-9I-6RU"/>
                 <constraint firstAttribute="trailing" secondItem="5SQ-Cp-U6o" secondAttribute="trailing" id="oXp-89-VFM"/>
-                <constraint firstAttribute="bottom" secondItem="ivn-lz-8Bo" secondAttribute="bottom" id="pKo-pZ-SNp"/>
             </constraints>
             <size key="customSize" width="85" height="102"/>
             <connections>

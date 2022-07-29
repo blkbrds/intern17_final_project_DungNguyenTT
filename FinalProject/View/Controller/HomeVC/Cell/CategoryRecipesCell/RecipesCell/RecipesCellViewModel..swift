@@ -9,4 +9,11 @@
 import Foundation
 
 final class RecipesCellViewModel {
+
+    // MARK: - Properties
+    private(set) var item: FilterByCategories
+
+    init(item: FilterByCategories) {
+        self.item = item
+    }
 }
