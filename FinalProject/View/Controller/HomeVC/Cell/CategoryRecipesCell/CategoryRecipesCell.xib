@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zpn-f1-N79">
-                        <rect key="frame" x="0.0" y="34" width="361" height="58"/>
+                        <rect key="frame" x="0.0" y="39" width="361" height="53"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mvs-Hm-S1R">
                             <size key="itemSize" width="128" height="128"/>
@@ -41,12 +41,13 @@
                     <constraint firstItem="pea-JV-ghp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="FcJ-N4-mzk"/>
                     <constraint firstAttribute="trailing" secondItem="pea-JV-ghp" secondAttribute="trailing" id="WA3-Ke-v43"/>
                     <constraint firstAttribute="trailing" secondItem="zpn-f1-N79" secondAttribute="trailing" id="XfO-x4-uxD"/>
-                    <constraint firstItem="zpn-f1-N79" firstAttribute="top" secondItem="pea-JV-ghp" secondAttribute="bottom" constant="5" id="Zz7-RA-Ch8"/>
+                    <constraint firstItem="zpn-f1-N79" firstAttribute="top" secondItem="pea-JV-ghp" secondAttribute="bottom" constant="10" id="Zz7-RA-Ch8"/>
                     <constraint firstAttribute="bottom" secondItem="zpn-f1-N79" secondAttribute="bottom" id="g6c-Z7-z8n"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="categoryLabel" destination="pea-JV-ghp" id="O78-EH-naD"/>
                 <outlet property="collectionView" destination="zpn-f1-N79" id="yv9-zb-4VZ"/>
             </connections>
             <point key="canvasLocation" x="-167.39130434782609" y="96.428571428571431"/>

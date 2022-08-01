@@ -8,15 +8,7 @@
 
 import UIKit
 
-protocol CategoryCellDelegate: AnyObject {
-    func cell(_ cell: CategorieCell, needPerformAction action: CategorieCell.Action)
-}
-
 final class CategorieCell: UICollectionViewCell {
-
-    enum Action {
-        case updateCategory
-    }
 
     // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
@@ -29,8 +21,6 @@ final class CategorieCell: UICollectionViewCell {
             updateView()
         }
     }
-
-    weak var delegate: CategoryCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,11 +35,5 @@ final class CategorieCell: UICollectionViewCell {
         imageView.downloadImage(url: urlString) { (image) in
             self.imageView.image = image
         }
-    }
-
-    // MARK: - IBActions
-    @IBAction private func categoriesButtonTouchUpInside(_ sender: UIButton) {
-        delegate?.cell(self, needPerformAction: .updateCategory)
-        print("tag")
     }
 }

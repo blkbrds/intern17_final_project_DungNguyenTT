@@ -39,7 +39,7 @@ final class CategoriesCell: UITableViewCell {
     // MARK: - Private functions
     private func configCell() {
         let nib = UINib(nibName: "CategoryCell", bundle: .main)
-        collectionView.register(nib, forCellWithReuseIdentifier: "cell")
+        collectionView.register(nib, forCellWithReuseIdentifier: Config.celIdentifier)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
@@ -58,19 +58,17 @@ extension CategoriesCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CategorieCell else {
-            return UICollectionViewCell()
-        }
-        guard let viewModel = viewModel else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Config.celIdentifier, for: indexPath) as? CategorieCell, let viewModel = viewModel else {
             return UICollectionViewCell()
         }
         cell.viewModel = viewModel.viewModelForItem(at: indexPath)
-        cell.delegate = self
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension CategoriesCell: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewModel = viewModel else { return }
         detegate?.cell(self, needPerformAction: .loadNewRecipes(name: viewModel.getNameCategory(at: indexPath)))
@@ -85,22 +83,12 @@ extension CategoriesCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - CategoriesCell
+// MARK: - Config
 extension CategoriesCell {
 
     struct Config {
+        static let celIdentifier: String = "cell"
         static let widthOfItem: CGFloat = (UIScreen.main.bounds.width - 20) / 5
-        static let heightOfItem: CGFloat = UIScreen.main.bounds.height / 7
-    }
-}
-
-extension CategoriesCell: CategoryCellDelegate {
-
-    func cell(_ cell: CategorieCell, needPerformAction action: CategorieCell.Action) {
-        guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        switch action {
-        case .updateCategory:
-            guard let viewModel = viewModel else { return }
-        }
+        static let heightOfItem: CGFloat = ((UIScreen.main.bounds.width - 20) / 5) * 7 / 5
     }
 }

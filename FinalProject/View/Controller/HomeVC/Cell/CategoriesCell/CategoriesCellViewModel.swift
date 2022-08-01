@@ -25,7 +25,7 @@ final class CategoriesCellViewModel {
     func viewModelForItem(at indexPath: IndexPath) -> CategotyCellViewModel {
         return CategotyCellViewModel(item: categories[indexPath.row])
     }
-    
+
     func getNameCategory(at indexPath: IndexPath) -> String {
         return categories[indexPath.row].name.unwrapped(or: "")
     }

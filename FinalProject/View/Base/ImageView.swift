@@ -8,33 +8,24 @@
 
 import UIKit
 import MVVM
+import Kingfisher
 
 class ImageView: UIImageView, MVVM.View { }
 
 extension UIImageView {
 
     func downloadImage(url: String, completion: @escaping (UIImage?) -> Void) {
-            guard let url = URL(string: url) else {
-                completion(nil)
-                return
-            }
-            let config = URLSessionConfiguration.default
-            config.waitsForConnectivity = true
-            let session = URLSession(configuration: config)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                DispatchQueue.main.async {
-                    if error != nil {
-                        completion(nil)
-                    } else {
-                        if let data = data {
-                            let image = UIImage(data: data)
-                            completion(image)
-                        } else {
-                            completion(nil)
-                        }
-                    }
-                }
-            }
-            task.resume()
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
         }
+        kf.indicatorType = .activity
+        kf.setImage(with: url,
+                    placeholder: nil,
+                    options: [
+                        .scaleFactor(UIScreen.main.scale),
+                        .transition(.fade(1)),
+                        .cacheOriginalImage
+                    ])
+    }
 }

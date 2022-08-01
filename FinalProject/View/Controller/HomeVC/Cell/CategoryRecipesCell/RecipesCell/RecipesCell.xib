@@ -17,16 +17,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="181" height="181"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2022-07-26 at 5.25.52 PM" translatesAutoresizingMaskIntoConstraints="NO" id="FsG-iP-rPr">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foodImage" translatesAutoresizingMaskIntoConstraints="NO" id="FsG-iP-rPr">
                         <rect key="frame" x="0.0" y="0.0" width="181" height="150"/>
-                        <color key="backgroundColor" red="0.2367254198" green="0.17260259389999999" blue="0.1510378718" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="30"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xLh-cl-bhu">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xLh-cl-bhu">
                         <rect key="frame" x="5" y="155" width="176" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <nil key="textColor"/>
@@ -54,6 +54,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Screen Shot 2022-07-26 at 5.25.52 PM" width="654" height="653"/>
+        <image name="foodImage" width="654" height="653"/>
     </resources>
 </document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionView: UICollectionView {
+extension UICollectionView {
     /** Get notified when UICollectionView has finished asking for data
      http://gg.gg/a5u8h
      */

@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '13.0'
 
 target 'FinalProject' do
   use_frameworks!
@@ -20,6 +20,7 @@ target 'FinalProject' do
 
   # UI
   pod 'SVProgressHUD', '2.2.5'
+  pod 'Kingfisher', '6.3.1'
 
   # Tool to enforce Swift style and conventions
   pod 'SwiftLint', '0.27.0'

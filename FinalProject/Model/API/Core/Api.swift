@@ -10,14 +10,14 @@ import Foundation
 import Alamofire
 
 final class Api {
-    
+
     struct CategoryPath: URLStringConvertible {
         let name: String
 
         init(name: String) {
             self.name = name
         }
-        
+
         var urlString: String {
             return Path.filterPath + name
         }
@@ -27,20 +27,6 @@ final class Api {
         static let baseURL = "https://www.themealdb.com/api/json/v1/1/"
         static let categoriesPath = baseURL + "categories.php"
         static let filterPath = baseURL + "filter.php?c="
-        static let byBeefPath = filterPath + "Beef"
-        static let byChickenPath = filterPath + "Chicken"
-        static let byDessertPath = filterPath + "Dessert"
-        static let byLambPath = filterPath + "Lamb"
-        static let byLMiscellaneousPath = filterPath + "Miscellaneous"
-        static let byPastaPath = filterPath + "Pasta"
-        static let byPorkPath = filterPath + "Pork"
-        static let bySeafoodPath = filterPath + "Seafood"
-        static let bySidePath = filterPath + "Side"
-        static let byStarterPath = filterPath + "Starter"
-        static let byVeganPath = filterPath + "Vegan"
-        static let byVegetarianPath = filterPath + "Vegetarian"
-        static let byBreakfastPath = filterPath + "Breakfast"
-        static let byGoatPath = filterPath + "Goat"
     }
 }
 

@@ -37,8 +37,9 @@ final class HomeViewController: ViewController {
 
     // MARK: - Private functions
     private func getCategory() {
+        guard let viewModel = viewModel else { return }
         HUD.show()
-        viewModel?.getCategory(completion: { [weak self] result in
+        viewModel.getCategory(completion: { [weak self] result in
             HUD.dismiss()
             guard let this = self else { return }
             DispatchQueue.main.async {
@@ -78,10 +79,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = HomeViewModel.RowType(rawValue: indexPath.row) else {
-            return UITableViewCell()
-        }
-        guard let viewModel = viewModel else {
+        guard let type = HomeViewModel.RowType(rawValue: indexPath.row), let viewModel = viewModel else {
             return UITableViewCell()
         }
         switch type {
@@ -117,6 +115,8 @@ extension HomeViewController: CategoriesCellDelegate {
     func cell(_ cell: CategoriesCell, needPerformAction action: CategoriesCell.Action) {
         switch action {
         case .loadNewRecipes(let name):
+            guard let viewModel = viewModel else { return }
+            viewModel.name = name
             getFilterByCategories(name: name)
         }
     }

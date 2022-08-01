@@ -12,22 +12,28 @@ final class CategoryRecipesCell: UITableViewCell {
 
     // MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var categoryLabel: UILabel!
 
     // MARK: - Properties
     var viewModel: CategoryRecipesCellViewModel? {
         didSet {
-            collectionView.reloadData()
+            updateView()
         }
     }
 
     // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        configCell()
+        configCollection()
+    }
+
+    private func updateView() {
+        collectionView.reloadData(moveTop: true)
+        categoryLabel.text = viewModel?.name
     }
 
     // MARK: - Private functions
-    private func configCell() {
+    private func configCollection() {
         collectionView.register(RecipesCell.self)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -62,7 +68,7 @@ extension CategoryRecipesCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - CategoryRecipesCell
+// MARK: - Config
 extension CategoryRecipesCell {
 
     struct Config {

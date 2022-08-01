@@ -20,6 +20,7 @@ final class HomeViewModel {
     // MARK: - Properties
     private(set) var categories: [Categories] = []
     private(set) var meals: [FilterByCategories] = []
+    var name: String = ""
 
     // MARK: - Functions
     func numberOfSections() -> Int {
@@ -81,7 +82,13 @@ final class HomeViewModel {
     }
 
     func viewModelForFilterByCategories() -> CategoryRecipesCellViewModel {
-        return CategoryRecipesCellViewModel(meals: meals)
+        var categoryName = ""
+        if categories.isNotEmpty && name.isEmpty {
+            categoryName = categories[0].name.unwrapped(or: "")
+        } else {
+            categoryName = name
+        }
+        return CategoryRecipesCellViewModel(meals: meals, name: categoryName)
     }
 }
 
@@ -90,7 +97,7 @@ extension HomeViewModel {
 
     struct Config {
         static let heightForSearch: Int = 130
-        static let heightForCategoties: Int = 100
-        static let heightForRecipes: Int = Int(screenHeight) - 130 - 100 - 20
+        static let heightForCategoties: Int = 120
+        static let heightForRecipes: Int = Int(screenHeight) - 130 - 120 - 20
     }
 }

@@ -12,9 +12,11 @@ final class CategoryRecipesCellViewModel {
 
     // MARK: - Properties
     private(set) var meals: [FilterByCategories] = []
+    private(set) var name: String = ""
 
-    init(meals: [FilterByCategories]) {
+    init(meals: [FilterByCategories], name: String) {
         self.meals = meals
+        self.name = name
     }
 
     // MARK: - Public functions
