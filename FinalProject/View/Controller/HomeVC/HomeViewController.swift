@@ -10,10 +10,10 @@ import UIKit
 
 final class HomeViewController: ViewController {
 
-    // MARK: - IBOutlet
+    // MARK: - IBOutlets
     @IBOutlet private weak var tableView: UITableView!
 
-    // MARK: - Property
+    // MARK: - Properties
     var viewModel: HomeViewModel?
 
     // MARK: - Life cycle
@@ -25,6 +25,8 @@ final class HomeViewController: ViewController {
     override func setupUI() {
         tableView.register(SearchCell.self)
         tableView.register(CategoriesCell.self)
+        tableView.register(CategoryRecipesCell.self)
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -33,20 +35,39 @@ final class HomeViewController: ViewController {
         getCategory()
     }
 
+    // MARK: - Private functions
     private func getCategory() {
+        guard let viewModel = viewModel else { return }
         HUD.show()
-        viewModel?.getCategory(completion: { [weak self] result in
+        viewModel.getCategory(completion: { [weak self] result in
             HUD.dismiss()
             guard let this = self else { return }
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    this.tableView.reloadData()
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    this.getFilterByCategories()
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
                 }
-            case .failure(let error):
-                this.alert(msg: error.localizedDescription, handler: nil)
             }
         })
+    }
+
+    private func getFilterByCategories(name: String = "") {
+        guard let viewModel = viewModel else { return }
+        HUD.show()
+        viewModel.getFilterByCategories(name: name) { [weak self] result in
+            HUD.dismiss()
+            guard let this = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    this.tableView.reloadData()
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
+        }
     }
 }
 
@@ -58,7 +79,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = HomeViewModel.RowType(rawValue: indexPath.row) else {
+        guard let type = HomeViewModel.RowType(rawValue: indexPath.row), let viewModel = viewModel else {
             return UITableViewCell()
         }
         switch type {
@@ -67,8 +88,13 @@ extension HomeViewController: UITableViewDataSource {
             return searchCell
         case .categoriesCell:
             let categoriesCell = tableView.dequeue(CategoriesCell.self)
-            categoriesCell.viewModel = viewModel?.viewModelForCategories()
+            categoriesCell.detegate = self
+            categoriesCell.viewModel = viewModel.viewModelForCategories()
             return categoriesCell
+        case .recipesCell:
+            let recipesCell = tableView.dequeue(CategoryRecipesCell.self)
+            recipesCell.viewModel = viewModel.viewModelForFilterByCategories()
+            return recipesCell
         }
     }
 }
@@ -81,5 +107,17 @@ extension HomeViewController: UITableViewDelegate {
             return 0
         }
         return CGFloat(viewModel.heightForRow(at: indexPath))
+    }
+}
+
+// MARK: - CategoriesCellDelegate
+extension HomeViewController: CategoriesCellDelegate {
+    func cell(_ cell: CategoriesCell, needPerformAction action: CategoriesCell.Action) {
+        switch action {
+        case .loadNewRecipes(let name):
+            guard let viewModel = viewModel else { return }
+            viewModel.name = name
+            getFilterByCategories(name: name)
+        }
     }
 }

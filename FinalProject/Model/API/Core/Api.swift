@@ -11,8 +11,22 @@ import Alamofire
 
 final class Api {
 
+    struct CategoryPath: URLStringConvertible {
+        let name: String
+
+        init(name: String) {
+            self.name = name
+        }
+
+        var urlString: String {
+            return Path.filterPath + name
+        }
+    }
+
     struct Path {
-        static let baseURL = "https://"
+        static let baseURL = "https://www.themealdb.com/api/json/v1/1/"
+        static let categoriesPath = baseURL + "categories.php"
+        static let filterPath = baseURL + "filter.php?c="
     }
 }
 

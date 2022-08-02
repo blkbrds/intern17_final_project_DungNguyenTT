@@ -9,7 +9,7 @@
 import Foundation
 
 extension Optional {
-    
+
     func unwrapped(or defaultValue: Wrapped) -> Wrapped {
         return self ?? defaultValue
     }

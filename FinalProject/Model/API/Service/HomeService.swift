@@ -11,7 +11,7 @@ import Foundation
 final class HomeService {
 
     class func getCategories(completion: @escaping Completion<[Categories]>) {
-        let urlString = "https://www.themealdb.com/api/json/v1/1/categories.php"
+        let urlString = Api.Path.categoriesPath
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case .success(let data):
@@ -21,6 +21,26 @@ final class HomeService {
                         category.append(Categories(json: item))
                     }
                     completion(.success(category))
+                } else {
+                    completion(.failure(Api.Error.json))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    class func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
+        let urlString = Api.CategoryPath(name: category)
+        api.request(method: .get, urlString: urlString) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? JSObject, let items = data["meals"] as? JSArray {
+                    var meals: [Meal] = []
+                    for item in items {
+                        meals.append(Meal(json: item))
+                    }
+                    completion(.success(meals))
                 } else {
                     completion(.failure(Api.Error.json))
                 }

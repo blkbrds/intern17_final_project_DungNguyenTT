@@ -23,6 +23,7 @@
 		5E1C545C288F7A10003CAD29 /* CategoryRecipesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */; };
 		5E1C5472288F9268003CAD29 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5471288F9268003CAD29 /* Categories.swift */; };
 		5E1C5477288F9A3E003CAD29 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C5476288F9A3E003CAD29 /* HomeService.swift */; };
+		5E3EA4EE28936E100012CB5F /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EA4ED28936E100012CB5F /* Meal.swift */; };
 		5E4506DE2890F41D0013B25A /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4506DD2890F41D0013B25A /* Optional.swift */; };
 		5EA838B8288E2E2C003017B4 /* SearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */; };
 		5EA838BC288E2E6D003017B4 /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */; };
@@ -88,6 +89,7 @@
 		5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryRecipesCell.xib; sourceTree = "<group>"; };
 		5E1C5471288F9268003CAD29 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		5E1C5476288F9A3E003CAD29 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		5E3EA4ED28936E100012CB5F /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		5E4506DD2890F41D0013B25A /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		5EA838B7288E2E2C003017B4 /* SearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
@@ -213,14 +215,14 @@
 			path = CategoryCell;
 			sourceTree = "<group>";
 		};
-		5E1C544C288F78D8003CAD29 /* RecipeCell */ = {
+		5E1C544C288F78D8003CAD29 /* RecipesCell */ = {
 			isa = PBXGroup;
 			children = (
 				5E1C544F288F7967003CAD29 /* RecipesCell.swift */,
 				5E1C5450288F7967003CAD29 /* RecipesCell.xib */,
 				5E1C5455288F798D003CAD29 /* RecipesCellViewModel..swift */,
 			);
-			path = RecipeCell;
+			path = RecipesCell;
 			sourceTree = "<group>";
 		};
 		5E1C5475288F9A08003CAD29 /* Service */ = {
@@ -234,7 +236,7 @@
 		5EA838E7288E7446003017B4 /* CategoryRecipesCell */ = {
 			isa = PBXGroup;
 			children = (
-				5E1C544C288F78D8003CAD29 /* RecipeCell */,
+				5E1C544C288F78D8003CAD29 /* RecipesCell */,
 				5E1C5459288F7A10003CAD29 /* CategoryRecipesCell.swift */,
 				5E1C545A288F7A10003CAD29 /* CategoryRecipesCell.xib */,
 				5EA838EE288E749F003017B4 /* CategoryRecipesCellViewModel.swift */,
@@ -267,6 +269,7 @@
 				5E1C5475288F9A08003CAD29 /* Service */,
 				6AF60D692313B56B00F5CBA2 /* Core */,
 				5E1C5471288F9268003CAD29 /* Categories.swift */,
+				5E3EA4ED28936E100012CB5F /* Meal.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				6AF60DC62313B56B00F5CBA2 /* ResponseSerializer.swift in Sources */,
 				6AF60D192313B35800F5CBA2 /* Errors.swift in Sources */,
 				6AF613BF2313C13A00F5CBA2 /* ScrollView.swift in Sources */,
+				5E3EA4EE28936E100012CB5F /* Meal.swift in Sources */,
 				5E4506DE2890F41D0013B25A /* Optional.swift in Sources */,
 				5E1C5451288F7967003CAD29 /* RecipesCell.swift in Sources */,
 				6AF60D222313B35800F5CBA2 /* String.swift in Sources */,
@@ -694,7 +698,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -749,7 +753,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

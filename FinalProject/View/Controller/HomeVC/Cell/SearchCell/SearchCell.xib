@@ -22,11 +22,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="448" height="90"/>
                         <subviews>
                             <searchBar contentMode="redraw" verticalCompressionResistancePriority="749" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="IrH-o5-Khh">
-                                <rect key="frame" x="20" y="40" width="408" height="50"/>
+                                <rect key="frame" x="10" y="42.5" width="428" height="47.5"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igd-fN-0gg">
-                                <rect key="frame" x="20" y="10" width="61.5" height="30"/>
+                                <rect key="frame" x="20" y="10" width="64" height="32.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
@@ -43,10 +43,10 @@
                         <constraints>
                             <constraint firstItem="igd-fN-0gg" firstAttribute="top" secondItem="m9u-Zi-F7n" secondAttribute="top" constant="10" id="HXg-nX-aYi"/>
                             <constraint firstAttribute="bottom" secondItem="IrH-o5-Khh" secondAttribute="bottom" id="Kdq-TW-v4W"/>
-                            <constraint firstItem="IrH-o5-Khh" firstAttribute="leading" secondItem="m9u-Zi-F7n" secondAttribute="leading" constant="20" id="QOr-bn-Jy8"/>
+                            <constraint firstItem="IrH-o5-Khh" firstAttribute="leading" secondItem="m9u-Zi-F7n" secondAttribute="leading" constant="10" id="QOr-bn-Jy8"/>
                             <constraint firstItem="IrH-o5-Khh" firstAttribute="top" secondItem="igd-fN-0gg" secondAttribute="bottom" id="Yz5-SZ-JMn"/>
                             <constraint firstItem="igd-fN-0gg" firstAttribute="leading" secondItem="m9u-Zi-F7n" secondAttribute="leading" constant="20" id="gwo-DA-evq"/>
-                            <constraint firstAttribute="trailing" secondItem="IrH-o5-Khh" secondAttribute="trailing" constant="20" id="oPV-D8-PnM"/>
+                            <constraint firstAttribute="trailing" secondItem="IrH-o5-Khh" secondAttribute="trailing" constant="10" id="oPV-D8-PnM"/>
                         </constraints>
                     </view>
                 </subviews>

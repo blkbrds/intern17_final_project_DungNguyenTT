@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
   - IQKeyboardManagerSwift (6.0.5)
+  - Kingfisher (6.3.1)
   - MVVM-Swift (1.1.0)
   - ObjectMapper (3.3.0)
   - Realm (3.17.3):
@@ -36,6 +37,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 4.8.2)
   - IQKeyboardManagerSwift (~> 6.0.4)
+  - Kingfisher (= 6.3.1)
   - MVVM-Swift (= 1.1.0)
   - ObjectMapper (= 3.3.0)
   - RealmSwift (= 3.17.3)
@@ -48,6 +50,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - IQKeyboardManagerSwift
+    - Kingfisher
     - MVVM-Swift
     - ObjectMapper
     - Realm
@@ -60,6 +63,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   IQKeyboardManagerSwift: c14eca30f6001457d6ddf25e313f23fb6578c41c
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   MVVM-Swift: 54749cc12bb30af41632f30a2c576a18bf9e4bc8
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
@@ -69,6 +73,6 @@ SPEC CHECKSUMS:
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
   SwiftUtils: de77bcd1df216c9be6ec7011777302c60a2018a6
 
-PODFILE CHECKSUM: 1934042c46fbe78cb137507d6f81183661bc4078
+PODFILE CHECKSUM: d212461c45b873a6343f840b09382eecf1090681
 
 COCOAPODS: 1.11.3

@@ -15,12 +15,12 @@ private struct ErrorFieldKey {
 extension NSError {
 
     var errorsString: [String] {
-        set {
-            objc_setAssociatedObject(self, &ErrorFieldKey.errors, newValue, .OBJC_ASSOCIATION_RETAIN)
-        }
         get {
             guard let errors = objc_getAssociatedObject(self, &ErrorFieldKey.errors) as? [String] else { return [] }
             return errors
+        }
+        set {
+            objc_setAssociatedObject(self, &ErrorFieldKey.errors, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
 }

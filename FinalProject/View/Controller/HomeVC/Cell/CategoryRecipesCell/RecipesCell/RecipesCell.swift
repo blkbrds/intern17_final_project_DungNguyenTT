@@ -1,36 +1,36 @@
 //
-//  CategorieCell.swift
+//  RecipesCell.swift
 //  FinalProject
 //
-//  Created by Dung Nguyen T.T. [3] VN.Danang on 7/22/22.
+//  Created by Dung Nguyen T.T. [3] VN.Danang on 7/26/22.
 //  Copyright © 2022 Asiantech. All rights reserved.
 //
 
 import UIKit
 
-final class CategoryCell: UICollectionViewCell {
+final class RecipesCell: UICollectionViewCell {
 
     // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var categorieLabel: UILabel!
-    @IBOutlet private weak var viewImage: UIView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var areaLabel: UILabel!
 
     // MARK: - Properties
-    var viewModel: CategotyCellViewModel? {
+    var viewModel: RecipesCellViewModel? {
         didSet {
-            updateView()
+            updateCell()
         }
     }
 
+    // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewImage.layer.masksToBounds = false
     }
 
-    // MARK: - Private function
-    private func updateView() {
+    // MARK: - Private functions
+    private func updateCell() {
         guard let viewModel = viewModel else { return }
-        categorieLabel.text = viewModel.item.name
+        nameLabel.text = viewModel.item.name
         let urlString = viewModel.item.thumb.unwrapped(or: "")
         imageView.downloadImage(url: urlString) { (image) in
             self.imageView.image = image

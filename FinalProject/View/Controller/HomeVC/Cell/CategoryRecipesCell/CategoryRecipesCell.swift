@@ -10,7 +10,69 @@ import UIKit
 
 final class CategoryRecipesCell: UITableViewCell {
 
+    // MARK: - IBOutlets
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var categoryLabel: UILabel!
+
+    // MARK: - Properties
+    var viewModel: CategoryRecipesCellViewModel? {
+        didSet {
+            updateView()
+        }
+    }
+
+    // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        configCollection()
+    }
+
+    private func updateView() {
+        collectionView.reloadData(moveTop: true)
+        categoryLabel.text = viewModel?.name
+    }
+
+    // MARK: - Private functions
+    private func configCollection() {
+        collectionView.register(RecipesCell.self)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        collectionView.collectionViewLayout = layout
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension CategoryRecipesCell: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel?.numberOfItemsInSection() ?? 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeue(RecipesCell.self, forIndexPath: indexPath)
+        guard let viewModel = viewModel else { return UICollectionViewCell() }
+        cell.viewModel = viewModel.viewModelForItem(at: indexPath)
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension CategoryRecipesCell: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: Config.widthOfItem, height: Config.heightOfItem)
+    }
+}
+
+// MARK: - Config
+extension CategoryRecipesCell {
+
+    struct Config {
+        static let widthOfItem: CGFloat = (UIScreen.main.bounds.width - 60) / 2
+        static let heightOfItem: CGFloat = UIScreen.main.bounds.height / 3.5
     }
 }

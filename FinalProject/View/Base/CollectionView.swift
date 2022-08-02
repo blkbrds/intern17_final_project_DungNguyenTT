@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CollectionView: UICollectionView {
+extension UICollectionView {
     /** Get notified when UICollectionView has finished asking for data
      http://gg.gg/a5u8h
      */
     func reloadData(moveTop: Bool, completion: (() -> Void)? = nil) {
         if moveTop {
-            setContentOffset(.zero, animated: false)
+            setContentOffset(CGPoint(x: contentOffset.x, y: 0), animated: false)
         }
 
         DispatchQueue.main.async { [weak self] in

@@ -10,7 +10,7 @@ import Foundation
 
 final class CategoriesCellViewModel {
 
-    // MARK: - Property
+    // MARK: - Properties
     private var categories: [Categories] = []
 
     init(categories: [Categories]) {
@@ -24,5 +24,9 @@ final class CategoriesCellViewModel {
 
     func viewModelForItem(at indexPath: IndexPath) -> CategotyCellViewModel {
         return CategotyCellViewModel(item: categories[indexPath.row])
+    }
+
+    func getNameCategory(at indexPath: IndexPath) -> String {
+        return categories[indexPath.row].name.unwrapped(or: "")
     }
 }
