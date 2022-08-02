@@ -38,8 +38,7 @@ final class CategoriesCell: UITableViewCell {
 
     // MARK: - Private functions
     private func configCell() {
-        let nib = UINib(nibName: "CategoryCell", bundle: .main)
-        collectionView.register(nib, forCellWithReuseIdentifier: Config.celIdentifier)
+        collectionView.register(CategoryCell.self)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
@@ -58,9 +57,10 @@ extension CategoriesCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Config.celIdentifier, for: indexPath) as? CategorieCell, let viewModel = viewModel else {
+        guard let viewModel = viewModel else {
             return UICollectionViewCell()
         }
+        let cell = collectionView.dequeue(CategoryCell.self, forIndexPath: indexPath)
         cell.viewModel = viewModel.viewModelForItem(at: indexPath)
         return cell
     }
@@ -87,7 +87,6 @@ extension CategoriesCell: UICollectionViewDelegateFlowLayout {
 extension CategoriesCell {
 
     struct Config {
-        static let celIdentifier: String = "cell"
         static let widthOfItem: CGFloat = (UIScreen.main.bounds.width - 20) / 5
         static let heightOfItem: CGFloat = ((UIScreen.main.bounds.width - 20) / 5) * 7 / 5
     }

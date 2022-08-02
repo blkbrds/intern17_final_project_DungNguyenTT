@@ -11,9 +11,9 @@ import Foundation
 final class RecipesCellViewModel {
 
     // MARK: - Properties
-    private(set) var item: FilterByCategories
+    private(set) var item: Meal
 
-    init(item: FilterByCategories) {
+    init(item: Meal) {
         self.item = item
     }
 }

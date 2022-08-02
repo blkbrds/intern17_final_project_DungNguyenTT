@@ -19,7 +19,7 @@ final class HomeViewModel {
 
     // MARK: - Properties
     private(set) var categories: [Categories] = []
-    private(set) var meals: [FilterByCategories] = []
+    private(set) var meals: [Meal] = []
     var name: String = ""
 
     // MARK: - Functions

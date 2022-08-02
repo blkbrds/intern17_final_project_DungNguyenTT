@@ -14,7 +14,7 @@ extension UICollectionView {
      */
     func reloadData(moveTop: Bool, completion: (() -> Void)? = nil) {
         if moveTop {
-            setContentOffset(.zero, animated: false)
+            setContentOffset(CGPoint(x: contentOffset.x, y: 0), animated: false)
         }
 
         DispatchQueue.main.async { [weak self] in

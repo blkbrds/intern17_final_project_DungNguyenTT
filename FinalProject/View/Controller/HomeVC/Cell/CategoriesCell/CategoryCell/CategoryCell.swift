@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CategorieCell: UICollectionViewCell {
+final class CategoryCell: UICollectionViewCell {
 
     // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!

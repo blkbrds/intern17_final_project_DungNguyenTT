@@ -30,15 +30,15 @@ final class HomeService {
         }
     }
 
-    class func getFilterCategories(category: String, completion: @escaping Completion<[FilterByCategories]>) {
+    class func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
         let urlString = Api.CategoryPath(name: category)
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case .success(let data):
                 if let data = data as? JSObject, let items = data["meals"] as? JSArray {
-                    var meals: [FilterByCategories] = []
+                    var meals: [Meal] = []
                     for item in items {
-                        meals.append(FilterByCategories(json: item))
+                        meals.append(Meal(json: item))
                     }
                     completion(.success(meals))
                 } else {

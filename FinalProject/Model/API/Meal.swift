@@ -8,13 +8,13 @@
 
 import Foundation
 
-final class FilterByCategories {
+final class Meal {
 
-    var meal: String?
-    var mealThumb: String?
+    var name: String?
+    var thumb: String?
 
     init(json: JSObject) {
-        meal = json["strMeal"] as? String
-        mealThumb = json["strMealThumb"] as? String
+        name = json["strMeal"] as? String
+        thumb = json["strMealThumb"] as? String
     }
 }

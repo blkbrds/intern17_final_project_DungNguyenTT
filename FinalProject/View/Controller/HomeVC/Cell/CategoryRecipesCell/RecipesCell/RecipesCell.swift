@@ -30,8 +30,8 @@ final class RecipesCell: UICollectionViewCell {
     // MARK: - Private functions
     private func updateCell() {
         guard let viewModel = viewModel else { return }
-        nameLabel.text = viewModel.item.meal
-        let urlString = viewModel.item.mealThumb.unwrapped(or: "")
+        nameLabel.text = viewModel.item.name
+        let urlString = viewModel.item.thumb.unwrapped(or: "")
         imageView.downloadImage(url: urlString) { (image) in
             self.imageView.image = image
         }

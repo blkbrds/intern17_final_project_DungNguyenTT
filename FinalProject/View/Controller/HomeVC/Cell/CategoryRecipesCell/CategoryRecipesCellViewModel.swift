@@ -11,10 +11,10 @@ import Foundation
 final class CategoryRecipesCellViewModel {
 
     // MARK: - Properties
-    private(set) var meals: [FilterByCategories] = []
+    private(set) var meals: [Meal] = []
     private(set) var name: String = ""
 
-    init(meals: [FilterByCategories], name: String) {
+    init(meals: [Meal], name: String) {
         self.meals = meals
         self.name = name
     }
