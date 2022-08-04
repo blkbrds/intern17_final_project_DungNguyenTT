@@ -17,9 +17,12 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var recipeLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
 
+    var viewModel: DetailRecipeViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        getDetailMeals()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,5 +38,32 @@ final class DetailRecipeViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.tintColor = .black
+    }
+
+    private func updateView() {
+        guard let viewModel = viewModel else { return }
+//        nameMealLabel.text = viewModel.detailMeal.
+//        recipeLabel.text = meal.recipe
+//        let urlString = meal.thumb.unwrapped(or: "")
+//        imageView.downloadImage(url: urlString) { (image) in
+//            self.imageView.image = image
+//        }
+    }
+
+    private func getDetailMeals() {
+        guard let viewModel = viewModel else { return }
+        HUD.show()
+        viewModel.getDetailMeals() { [weak self] result in
+            HUD.dismiss()
+            guard let this = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    this.updateView()
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
+        }
     }
 }

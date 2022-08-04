@@ -11,8 +11,25 @@ import Foundation
 final class DetailRecipeViewModel {
 
     private(set) var detailMeal: [DetailMeal] = []
+    private(set) var name: String
 
-    init(detailMeal: [DetailMeal]) {
-        self.detailMeal = detailMeal
+    init(name: String) {
+        self.name = name
+    }
+
+    func getDetailMeals(completion: @escaping APICompletion) {
+        DetailMealService.getDetailMeal(name: name) { [weak self] result in
+            guard let this = self else {
+                completion(.failure(Api.Error.unexpectIssued))
+                return
+            }
+            switch result {
+            case .success(let detailMeal):
+                this.detailMeal = detailMeal
+                completion(.success)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

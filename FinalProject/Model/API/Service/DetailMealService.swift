@@ -10,8 +10,9 @@ import Foundation
 
 final class DetailMealService {
 
-    func getDetailMeal(name: String, completion: @escaping Completion<[DetailMeal]>) {
-        let urlString = Api.MealPath(name: name)
+    class func getDetailMeal(name: String, completion: @escaping Completion<[DetailMeal]>) {
+//        let urlString = Api.MealPath(name: name)
+        let urlString =  "https://www.themealdb.com/api/json/v1/1/search.php?s=Beef and Mustard Pie"
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case . success(let data):

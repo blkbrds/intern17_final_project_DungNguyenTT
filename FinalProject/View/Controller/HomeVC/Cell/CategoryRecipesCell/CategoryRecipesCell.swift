@@ -15,7 +15,7 @@ protocol CategoryRecipesCellDelegate: class {
 final class CategoryRecipesCell: UITableViewCell {
 
     enum Action {
-        case loadNameMeal
+        case loadNameMeal(name: String)
     }
 
     // MARK: - IBOutlets
@@ -73,7 +73,8 @@ extension CategoryRecipesCell: UICollectionViewDataSource {
 extension CategoryRecipesCell: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.cell(self, needPerformAction: .loadNameMeal)
+        guard let viewModel = viewModel else { return }
+        delegate?.cell(self, needPerformAction: .loadNameMeal(name: viewModel.getNameMeal(at: indexPath)))
     }
 }
 
