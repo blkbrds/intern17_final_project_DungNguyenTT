@@ -23,10 +23,23 @@ final class Api {
         }
     }
 
+    struct MealPath: URLStringConvertible {
+
+        let name: String
+        var urlString: String {
+            return Path.searchPath + name
+        }
+
+        init(name: String) {
+            self.name = name
+        }
+    }
+
     struct Path {
         static let baseURL = "https://www.themealdb.com/api/json/v1/1/"
         static let categoriesPath = baseURL + "categories.php"
         static let filterPath = baseURL + "filter.php?c="
+        static let searchPath = baseURL + "search.php?s="
     }
 }
 

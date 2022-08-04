@@ -21,6 +21,12 @@ final class HomeViewController: ViewController {
         super.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+    }
+
     // MARK: - Config
     override func setupUI() {
         tableView.register(SearchCell.self)
@@ -94,6 +100,7 @@ extension HomeViewController: UITableViewDataSource {
         case .recipesCell:
             let recipesCell = tableView.dequeue(CategoryRecipesCell.self)
             recipesCell.viewModel = viewModel.viewModelForFilterByCategories()
+            recipesCell.delegate = self
             return recipesCell
         }
     }
@@ -112,12 +119,25 @@ extension HomeViewController: UITableViewDelegate {
 
 // MARK: - CategoriesCellDelegate
 extension HomeViewController: CategoriesCellDelegate {
+
     func cell(_ cell: CategoriesCell, needPerformAction action: CategoriesCell.Action) {
         switch action {
         case .loadNewRecipes(let name):
             guard let viewModel = viewModel else { return }
             viewModel.name = name
             getFilterByCategories(name: name)
+        }
+    }
+}
+
+// MARK: - CategoryRecipesCellDelegate
+extension HomeViewController: CategoryRecipesCellDelegate {
+
+    func cell(_ cell: CategoryRecipesCell, needPerformAction action: CategoryRecipesCell.Action) {
+        switch action {
+        case .loadNameMeal:
+            let vc = DetailRecipeViewController()
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
