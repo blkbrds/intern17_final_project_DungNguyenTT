@@ -11,9 +11,11 @@ import Foundation
 final class IngredientViewModel {
 
     // MARK: - Properties
-    private(set) var item: DetailMeal
+    private(set) var ingredient: String
+    private(set) var measure: String
 
-    init(item: DetailMeal) {
-        self.item = item
+    init(ingredient: String, measure: String) {
+        self.ingredient = ingredient
+        self.measure = measure
     }
 }

@@ -32,4 +32,8 @@ final class DetailRecipeViewModel {
             }
         }
     }
+
+    func viewModelForItem(at index: Int) -> IngredientViewModel {
+        return IngredientViewModel(ingredient: detailMeal?.ingredient[index] ?? "", measure: detailMeal?.measure[index] ?? "")
+    }
 }

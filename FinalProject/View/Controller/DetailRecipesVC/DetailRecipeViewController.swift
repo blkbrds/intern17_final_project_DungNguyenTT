@@ -13,7 +13,7 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var favoritesButton: UIButton!
     @IBOutlet private weak var nameMealLabel: UILabel!
-    @IBOutlet private weak var ingredientView: UIView!
+    @IBOutlet private weak var ingredientStackView: UIStackView!
     @IBOutlet private weak var recipeLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
@@ -51,10 +51,14 @@ final class DetailRecipeViewController: UIViewController {
         imageView.downloadImage(url: urlString) { (image) in
             self.imageView.image = image
         }
-        let view1 = IngredientView()
-        view1.frame = ingredientView.bounds
-        view1.backgroundColor = .red
-        ingredientView.addSubview(view1)
+        guard let length = viewModel.detailMeal?.ingredient.count else { return }
+        for item in 0..<length {
+            let ingredientCustomView = Bundle.main.loadNibNamed("IngredientView", owner: nil, options: nil)?.first as? IngredientView
+            ingredientCustomView?.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
+            ingredientCustomView?.viewModel = viewModel.viewModelForItem(at: item)
+            ingredientStackView.distribution = .fillEqually
+            ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
+        }
     }
 
     private func getDetailMeals() {

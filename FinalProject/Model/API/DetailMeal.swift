@@ -15,8 +15,8 @@ final class DetailMeal {
     var area: String?
     var recipe: String?
     var video: String?
-    var ingredient: [String]?
-    var measure: [String]?
+    var ingredient: [String] = []
+    var measure: [String] = []
 
     init(json: JSObject) {
         name = json["strMeal"] as? String
@@ -27,13 +27,13 @@ final class DetailMeal {
 
         for i in 1...20 {
             if let item = json["strIngredient\(i)"] as? String, item != "" {
-                ingredient?.append(item)
+                ingredient.append(item)
             }
         }
 
         for j in 1...20 {
             if let item = json["strMeasure\(j)"] as? String, item != "" {
-                measure?.append(item)
+                measure.append(item)
             }
         }
     }
