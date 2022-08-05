@@ -21,13 +21,15 @@ final class IngredientView: UIView {
 
     private func updateCell() {
         guard let viewModel = viewModel else { return }
-        if let ingredients = viewModel.item.ingredient, let measures = viewModel.item.measure {
-            for ingredient in ingredients {
-                ingredientLabel.text = ingredient
-            }
-            for measure in measures {
-                measureLabel.text = measure
-            }
-        }
+//        if let ingredients = viewModel.item.ingredient, let measures = viewModel.item.measure {
+//            for ingredient in ingredients {
+//                ingredientLabel.text = ingredient
+//            }
+//            for measure in measures {
+//                measureLabel.text = measure
+//            }
+//        }
+        ingredientLabel.text = viewModel.igeredient
+        measureLabel.text = viewModel.measure
     }
 }

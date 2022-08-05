@@ -13,6 +13,8 @@ final class DetailRecipeViewModel {
     private(set) var detailMeal: DetailMeal?
     private(set) var name: String
 
+
+
     init(name: String) {
         self.name = name
     }
@@ -31,5 +33,9 @@ final class DetailRecipeViewModel {
                 completion(.failure(error))
             }
         }
+    }
+
+    func viewModelForItem(at index: Int) -> IngredientViewModel {
+        return IngredientViewModel(igeredient: detailMeal?.ingredient[index] ?? "", measure: detailMeal?.measure[index] ?? "")
     }
 }
