@@ -24,47 +24,17 @@ final class DetailMeal {
         area = json["strArea"] as? String
         recipe = json["strInstructions"] as? String
         video = json["strYoutube"] as? String
-        ingredient = [json["strIngredient1"],
-                      json["strIngredient2"],
-                      json["strIngredient3"],
-                      json["strIngredient4"],
-                      json["strIngredient5"],
-                      json["strIngredient6"],
-                      json["strIngredient7"],
-                      json["strIngredient8"],
-                      json["strIngredient9"],
-                      json["strIngredient10"],
-                      json["strIngredient11"],
-                      json["strIngredient12"],
-                      json["strIngredient13"],
-                      json["strIngredient14"],
-                      json["strIngredient15"],
-                      json["strIngredient16"],
-                      json["strIngredient17"],
-                      json["strIngredient18"],
-                      json["strIngredient19"],
-                      json["strIngredient20"]
-                    ] as? [String]
-        measure = [json["strMeasure1"],
-                   json["strMeasure2"],
-                   json["strMeasure3"],
-                   json["strMeasure4"],
-                   json["strMeasure5"],
-                   json["strMeasure6"],
-                   json["strMeasure7"],
-                   json["strMeasure"],
-                   json["strMeasure9"],
-                   json["strMeasure10"],
-                   json["strMeasure11"],
-                   json["strMeasure12"],
-                   json["strMeasure13"],
-                   json["strMeasure14"],
-                   json["strMeasure15"],
-                   json["strMeasure16"],
-                   json["strMeasure17"],
-                   json["strMeasure18"],
-                   json["strMeasure19"],
-                   json["strMeasure20"]
-                 ] as? [String]
+
+        for i in 1...20 {
+            if let item = json["strIngredient\(i)"] as? String, item != "" {
+                ingredient?.append(item)
+            }
+        }
+
+        for j in 1...20 {
+            if let item = json["strMeasure\(j)"] as? String, item != "" {
+                measure?.append(item)
+            }
+        }
     }
 }

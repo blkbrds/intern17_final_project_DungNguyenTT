@@ -10,7 +10,7 @@ import Foundation
 
 final class DetailRecipeViewModel {
 
-    private(set) var detailMeal: [DetailMeal] = []
+    private(set) var detailMeal: DetailMeal?
     private(set) var name: String
 
     init(name: String) {

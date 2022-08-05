@@ -10,18 +10,17 @@ import Foundation
 
 final class DetailMealService {
 
-    class func getDetailMeal(name: String, completion: @escaping Completion<[DetailMeal]>) {
-//        let urlString = Api.MealPath(name: name)
-        let urlString =  "https://www.themealdb.com/api/json/v1/1/search.php?s=Beef and Mustard Pie"
+    class func getDetailMeal(name: String, completion: @escaping Completion<DetailMeal>) {
+        let urlString = Api.MealPath(name: name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case . success(let data):
                 if let data = data as? JSObject, let items = data["meals"] as? JSArray {
-                    var meal: [DetailMeal] = []
-                    for item in items {
-                        meal.append(DetailMeal(json: item))
+                    guard let meal = items.first else {
+                        return
+                            completion(.failure(Api.Error.json))
                     }
-                    completion(.success(meal))
+                    completion(.success(DetailMeal(json: meal)))
                 } else {
                     completion(.failure(Api.Error.json))
                 }

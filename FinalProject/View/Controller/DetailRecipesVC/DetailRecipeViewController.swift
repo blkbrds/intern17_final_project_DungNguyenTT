@@ -13,8 +13,9 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var favoritesButton: UIButton!
     @IBOutlet private weak var nameMealLabel: UILabel!
-    @IBOutlet private weak var ingredientLabel: UILabel!
+    @IBOutlet private weak var ingredientView: UIView!
     @IBOutlet private weak var recipeLabel: UILabel!
+    @IBOutlet private weak var areaLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
 
     var viewModel: DetailRecipeViewModel?
@@ -42,18 +43,24 @@ final class DetailRecipeViewController: UIViewController {
 
     private func updateView() {
         guard let viewModel = viewModel else { return }
-//        nameMealLabel.text = viewModel.detailMeal.
-//        recipeLabel.text = meal.recipe
-//        let urlString = meal.thumb.unwrapped(or: "")
-//        imageView.downloadImage(url: urlString) { (image) in
-//            self.imageView.image = image
-//        }
+        guard let meal = viewModel.detailMeal else { return }
+        nameMealLabel.text = meal.name
+        recipeLabel.text = meal.recipe
+        areaLabel.text = meal.area
+        let urlString = meal.thumb.unwrapped(or: "")
+        imageView.downloadImage(url: urlString) { (image) in
+            self.imageView.image = image
+        }
+        let view1 = IngredientView()
+        view1.frame = ingredientView.bounds
+        view1.backgroundColor = .red
+        ingredientView.addSubview(view1)
     }
 
     private func getDetailMeals() {
         guard let viewModel = viewModel else { return }
         HUD.show()
-        viewModel.getDetailMeals() { [weak self] result in
+        viewModel.getDetailMeals { [weak self] result in
             HUD.dismiss()
             guard let this = self else { return }
             DispatchQueue.main.async {
