@@ -34,5 +34,3 @@ Pods
 vendor/bundle
 *.coverage.txt
 swiftlint-report.json
-*.xcworkspacedata
-*.xcworkspace/
