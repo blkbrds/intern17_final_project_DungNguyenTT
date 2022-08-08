@@ -27,4 +27,8 @@ final class CategoryRecipesCellViewModel {
     func viewModelForItem(at indexPath: IndexPath) -> RecipesCellViewModel {
         return RecipesCellViewModel(item: meals[indexPath.row])
     }
+
+    func getNameMeal(at indexPath: IndexPath) -> String {
+        return meals[indexPath.row].name.unwrapped(or: "")
+    }
 }

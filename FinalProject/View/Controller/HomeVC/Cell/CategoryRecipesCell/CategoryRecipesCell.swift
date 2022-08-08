@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol CategoryRecipesCellDelegate: class {
+    func cell(_ cell: CategoryRecipesCell, needPerformAction action: CategoryRecipesCell.Action)
+}
+
 final class CategoryRecipesCell: UITableViewCell {
+
+    enum Action {
+        case loadNameMeal(name: String)
+    }
 
     // MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -20,6 +28,7 @@ final class CategoryRecipesCell: UITableViewCell {
             updateView()
         }
     }
+    weak var delegate: CategoryRecipesCellDelegate?
 
     // MARK: - Life cycle
     override func awakeFromNib() {
@@ -57,6 +66,15 @@ extension CategoryRecipesCell: UICollectionViewDataSource {
         guard let viewModel = viewModel else { return UICollectionViewCell() }
         cell.viewModel = viewModel.viewModelForItem(at: indexPath)
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension CategoryRecipesCell: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+        delegate?.cell(self, needPerformAction: .loadNameMeal(name: viewModel.getNameMeal(at: indexPath)))
     }
 }
 
