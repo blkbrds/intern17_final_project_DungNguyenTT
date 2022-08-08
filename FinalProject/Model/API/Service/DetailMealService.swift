@@ -17,8 +17,8 @@ final class DetailMealService {
             case . success(let data):
                 if let data = data as? JSObject, let items = data["meals"] as? JSArray {
                     guard let meal = items.first else {
+                        completion(.failure(Api.Error.json))
                         return
-                            completion(.failure(Api.Error.json))
                     }
                     completion(.success(DetailMeal(json: meal)))
                 } else {
