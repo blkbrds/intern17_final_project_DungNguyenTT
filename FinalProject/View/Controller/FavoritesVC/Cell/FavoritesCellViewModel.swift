@@ -9,4 +9,11 @@
 import Foundation
 
 final class FavoritesCellViewModel {
+
+    // MARK: - Properties
+    private(set) var meal: Meal
+
+    init(meal: Meal) {
+        self.meal = meal
+    }
 }

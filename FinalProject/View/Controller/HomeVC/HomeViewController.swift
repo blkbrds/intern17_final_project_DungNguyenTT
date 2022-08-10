@@ -135,9 +135,9 @@ extension HomeViewController: CategoryRecipesCellDelegate {
 
     func cell(_ cell: CategoryRecipesCell, needPerformAction action: CategoryRecipesCell.Action) {
         switch action {
-        case .loadNameMeal(let name):
+        case .loadIdMeal(let id):
             let detailRecipeVC = DetailRecipeViewController()
-            detailRecipeVC.viewModel = DetailRecipeViewModel(name: name)
+            detailRecipeVC.viewModel = DetailRecipeViewModel(id: id)
             navigationController?.pushViewController(detailRecipeVC, animated: true)
         }
     }

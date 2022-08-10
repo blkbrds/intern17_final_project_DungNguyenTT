@@ -7,18 +7,21 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class DetailRecipeViewModel {
 
-    private(set) var detailMeal: DetailMeal?
-    private(set) var name: String
+    // MARK: - Properties
+    private(set) var detailMeal: Meal?
+    var id: String
 
-    init(name: String) {
-        self.name = name
+    init(id: String) {
+        self.id = id
     }
 
+    // MARK: - Public functions
     func getDetailMeals(completion: @escaping APICompletion) {
-        DetailMealService.getDetailMeal(name: name) { [weak self] result in
+        DetailMealService.getDetailMeal(id: id) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return
@@ -35,5 +38,44 @@ final class DetailRecipeViewModel {
 
     func viewModelForItem(at index: Int) -> IngredientViewModel {
         return IngredientViewModel(ingredient: detailMeal?.ingredient[index] ?? "", measure: detailMeal?.measure[index] ?? "")
+    }
+
+    func checkIsFavotire() -> Bool {
+        do {
+            let realm = try Realm()
+            let results = realm.objects(Meal.self).first(where: { $0.id == id })
+            return results != nil
+        } catch {
+            print(error)
+            return false
+        }
+    }
+
+    func addFavorites() {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                let detailMeal = Meal()
+                detailMeal.id = self.detailMeal?.id
+                detailMeal.name = self.detailMeal?.name
+                detailMeal.thumb = self.detailMeal?.thumb
+                detailMeal.area = self.detailMeal?.area
+                realm.add(detailMeal)
+            }
+        } catch {
+            print("Error")
+        }
+    }
+
+    func deleteFavorites() {
+        do {
+            let realm = try Realm()
+            guard let results = realm.objects(Meal.self).first(where: { $0.id == id }) else { return }
+            try realm.write {
+                realm.delete(results)
+            }
+        } catch {
+            print(error)
+        }
     }
 }

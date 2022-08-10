@@ -13,7 +13,6 @@ final class RecipesCell: UICollectionViewCell {
     // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var areaLabel: UILabel!
 
     // MARK: - Properties
     var viewModel: RecipesCellViewModel? {

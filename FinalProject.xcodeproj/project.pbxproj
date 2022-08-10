@@ -32,7 +32,6 @@
 		5E9C5E9028A10EA400E5F4E2 /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C5E8E28A10EA400E5F4E2 /* FavoritesCell.swift */; };
 		5E9C5E9128A10EA400E5F4E2 /* FavoritesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E9C5E8F28A10EA400E5F4E2 /* FavoritesCell.xib */; };
 		5E9C5E9728A10ECC00E5F4E2 /* FavoritesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9C5E9628A10ECC00E5F4E2 /* FavoritesCellViewModel.swift */; };
-		5EA18285289B58A6003E20D4 /* DetailMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA18284289B58A6003E20D4 /* DetailMeal.swift */; };
 		5EA18289289B6016003E20D4 /* DetailMealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA18288289B6016003E20D4 /* DetailMealService.swift */; };
 		5EA182BF289B7A8F003E20D4 /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA182BD289B7A8F003E20D4 /* AddRecipeViewController.swift */; };
 		5EA182C0289B7A8F003E20D4 /* AddRecipeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA182BE289B7A8F003E20D4 /* AddRecipeViewController.xib */; };
@@ -114,7 +113,6 @@
 		5E9C5E8E28A10EA400E5F4E2 /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
 		5E9C5E8F28A10EA400E5F4E2 /* FavoritesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesCell.xib; sourceTree = "<group>"; };
 		5E9C5E9628A10ECC00E5F4E2 /* FavoritesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCellViewModel.swift; sourceTree = "<group>"; };
-		5EA18284289B58A6003E20D4 /* DetailMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMeal.swift; sourceTree = "<group>"; };
 		5EA18288289B6016003E20D4 /* DetailMealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMealService.swift; sourceTree = "<group>"; };
 		5EA182BD289B7A8F003E20D4 /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		5EA182BE289B7A8F003E20D4 /* AddRecipeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRecipeViewController.xib; sourceTree = "<group>"; };
@@ -193,6 +191,13 @@
 				7EB1AD2584DB4F2ED9CCF8A4 /* Pods-FinalProjectTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5E0B866928A1F45E00551FE1 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		5E0DBC5A288A895700DC28E9 /* HomeVC */ = {
@@ -341,6 +346,7 @@
 		6AF60D232313B56B00F5CBA2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5E0B866928A1F45E00551FE1 /* Realm */,
 				6AF60D242313B56B00F5CBA2 /* Session.swift */,
 				6AF60D672313B56B00F5CBA2 /* API */,
 			);
@@ -354,7 +360,6 @@
 				6AF60D692313B56B00F5CBA2 /* Core */,
 				5E1C5471288F9268003CAD29 /* Categories.swift */,
 				5E3EA4ED28936E100012CB5F /* Meal.swift */,
-				5EA18284289B58A6003E20D4 /* DetailMeal.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -690,7 +695,6 @@
 				5E9C5E8A28A10E2900E5F4E2 /* FavoritesViewModel.swift in Sources */,
 				6AF613B72313C13A00F5CBA2 /* CollectionView.swift in Sources */,
 				5EA182BF289B7A8F003E20D4 /* AddRecipeViewController.swift in Sources */,
-				5EA18285289B58A6003E20D4 /* DetailMeal.swift in Sources */,
 				5E1C5472288F9268003CAD29 /* Categories.swift in Sources */,
 				6AFD0303231375EE004940FA /* AppDelegate.swift in Sources */,
 				6AF613B02313C13A00F5CBA2 /* CollectionCell.swift in Sources */,

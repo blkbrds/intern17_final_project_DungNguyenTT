@@ -8,14 +8,28 @@
 
 import UIKit
 
-class FavoritesCell: UITableViewCell {
+final class FavoritesCell: UITableViewCell {
 
+    // MARK: - IBOutlets
     @IBOutlet private weak var mealImageView: UIImageView!
-    @IBOutlet weak var nameMealLabel: UILabel!
-    @IBOutlet weak var areaLabel: UILabel!
-    @IBOutlet weak var favoritesButton: UIButton!
+    @IBOutlet private weak var nameMealLabel: UILabel!
+    @IBOutlet private weak var areaLabel: UILabel!
+    @IBOutlet private weak var favoritesButton: UIButton!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    // MARK: - Properties
+    var viewModel: FavoritesCellViewModel? {
+        didSet {
+            updateCell()
+        }
+    }
+
+    // MARK: - Private functions
+    private func updateCell() {
+        let urlString = viewModel?.meal.thumb.unwrapped(or: "")
+        mealImageView.downloadImage(url: urlString ?? "") { (image) in
+            self.mealImageView.image = image
+        }
+        nameMealLabel.text = viewModel?.meal.name
+        areaLabel.text = viewModel?.meal.area
     }
 }

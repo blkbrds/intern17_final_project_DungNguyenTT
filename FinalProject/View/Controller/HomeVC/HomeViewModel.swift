@@ -70,7 +70,6 @@ final class HomeViewModel {
             switch result {
             case .success(let meals):
                 this.meals = meals
-                this.name = name
                 completion(.success)
             case .failure(let error):
                 completion(.failure(error))

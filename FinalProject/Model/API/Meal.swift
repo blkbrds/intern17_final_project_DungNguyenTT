@@ -7,14 +7,49 @@
 //
 
 import Foundation
+import ObjectMapper
+import RealmSwift
 
-final class Meal {
+final class Meal: Object, Mappable {
 
-    var name: String?
-    var thumb: String?
+    @objc dynamic var id: String?
+    @objc dynamic var name: String?
+    @objc dynamic var thumb: String?
+    @objc dynamic var area: String?
+    var recipe: String?
+    var video: String?
+    var ingredient: [String] = []
+    var measure: [String] = []
 
-    init(json: JSObject) {
-        name = json["strMeal"] as? String
-        thumb = json["strMealThumb"] as? String
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+
+    convenience required init(map: Map) {
+        self.init()
+        self.mapping(map: map)
+    }
+
+    func mapping(map: Map) {
+        id <- map["idMeal"]
+        name <- map["strMeal"]
+        thumb <- map["strMealThumb"]
+        area <- map["strArea"]
+        recipe <- map["strInstructions"]
+        video <- map["strYoutube"]
+        for i in 1...20 {
+            var item: String = ""
+            item <- map["strIngredient\(i)"]
+            if item != "" {
+                ingredient.append(item)
+            }
+        }
+        for j in 1...20 {
+            var item: String = ""
+            item <- map["strMeasure\(j)"]
+            if item != "" {
+                measure.append(item)
+            }
+        }
     }
 }
