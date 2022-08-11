@@ -62,11 +62,7 @@ final class DetailRecipeViewController: UIViewController {
             ingredientStackView.distribution = .fillEqually
             ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
         }
-        if viewModel.checkIsFavotire() {
-            favoritesButton.backgroundColor = .yellow
-        } else {
-            favoritesButton.backgroundColor = .white
-        }
+        favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }
 
     private func getDetailMeals() {
@@ -89,12 +85,11 @@ final class DetailRecipeViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func favoritesButtonTouchUpInside(_ sender: UIButton) {
         guard let viewModel = viewModel else { return }
-        let fetchData = viewModel.checkIsFavotire()
-        if fetchData {
+        if viewModel.checkIsFavotire() {
             viewModel.deleteFavorites()
         } else {
             viewModel.addFavorites()
         }
-        favoritesButton.backgroundColor = !fetchData ? UIColor.yellow : UIColor.white
+        favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }
 }

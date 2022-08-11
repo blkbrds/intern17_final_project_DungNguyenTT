@@ -30,13 +30,14 @@ final class FavoritesViewModel {
         return detailMeals.count
     }
 
-    func fetchData() {
+    func fetchData(completion: (Bool) -> Void) {
         do {
             let realm = try Realm()
             let results = realm.objects(Meal.self)
             detailMeals = Array(results)
+            completion(true)
         } catch {
-            print(error)
+            completion(false)
         }
     }
 

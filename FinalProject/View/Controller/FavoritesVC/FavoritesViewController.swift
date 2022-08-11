@@ -12,7 +12,7 @@ import RealmSwift
 final class FavoritesViewController: ViewController {
 
     // MARK: - IBOutlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     // MARK: - Properties
     var viewModel = FavoritesViewModel()
@@ -20,7 +20,7 @@ final class FavoritesViewController: ViewController {
     // MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Config
@@ -39,8 +39,13 @@ final class FavoritesViewController: ViewController {
 
     // MARK: - Private functions
     private func fetchData() {
-        viewModel.fetchData()
-        tableView.reloadData()
+        viewModel.fetchData { (done) in
+            if done {
+                tableView.reloadData()
+            } else {
+                alert(msg: "Error", handler: nil)
+            }
+        }
     }
 }
 
@@ -65,10 +70,9 @@ extension FavoritesViewController: UITableViewDataSource {
       if editingStyle == .delete {
         viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
         viewModel.detailMeals.remove(at: indexPath.row)
-        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
       }
     }
-
 }
 
 // MARK: - UITableViewDelegate
