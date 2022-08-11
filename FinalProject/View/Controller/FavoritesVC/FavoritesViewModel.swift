@@ -9,31 +9,38 @@
 import Foundation
 import RealmSwift
 
-// MARK: - Protocol
-protocol FavoritesViewModelDelegate: class {
-    func viewModel(_ viewModel: FavoritesViewModel, needperfomAction action: FavoritesViewModel.Action)
-}
-
 final class FavoritesViewModel {
-
-    enum Action {
-        case reloadData
-    }
 
     // MARK: - Properties
     var detailMeals: [Meal] = []
     private(set) var notificationToken: NotificationToken?
-    weak var delegate: FavoritesViewModelDelegate?
 
     // MARK: - Public functions
     func numberOfRowsInSection() -> Int {
         return detailMeals.count
     }
 
+    func setupObserve(completion: @escaping (Bool) -> Void) {
+        do {
+            let realm = try Realm()
+            notificationToken = realm.objects(Meal.self).observe({ _ in
+                self.fetchData { (done) in
+                    if done {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
+            })
+        } catch {
+            print(error)
+        }
+    }
+
     func fetchData(completion: (Bool) -> Void) {
         do {
             let realm = try Realm()
-            let results = realm.objects(Meal.self)
+            let results = realm.objects(Meal.self).sorted(byKeyPath: "date", ascending: true)
             detailMeals = Array(results)
             completion(true)
         } catch {
@@ -41,23 +48,8 @@ final class FavoritesViewModel {
         }
     }
 
-    func setupObserve() {
-        do {
-            let realm = try Realm()
-            notificationToken = realm.objects(Meal.self).observe({ _ in
-                self.delegate?.viewModel(self, needperfomAction: .reloadData)
-            })
-        } catch {
-            print(error)
-        }
-    }
-
     func viewModelForCell(at indexPath: IndexPath) -> FavoritesCellViewModel {
         return FavoritesCellViewModel(meal: detailMeals[indexPath.row])
-    }
-
-    func loadDetailView(at indexPath: IndexPath) -> String {
-        return detailMeals[indexPath.row].id.unwrapped(or: "")
     }
 
     func deleteMealInRealm(id: String) {

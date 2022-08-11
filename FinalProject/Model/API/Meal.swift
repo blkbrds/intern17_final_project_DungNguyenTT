@@ -16,6 +16,7 @@ final class Meal: Object, Mappable {
     @objc dynamic var name: String?
     @objc dynamic var thumb: String?
     @objc dynamic var area: String?
+    @objc dynamic var date: Date?
     var recipe: String?
     var video: String?
     var ingredient: [String] = []

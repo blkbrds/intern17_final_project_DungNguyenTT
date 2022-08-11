@@ -33,17 +33,18 @@ final class FavoritesViewController: ViewController {
     }
 
     override func setupData() {
-        viewModel.delegate = self
-        viewModel.setupObserve()
+        setupObserve()
     }
 
     // MARK: - Private functions
-    private func fetchData() {
-        viewModel.fetchData { (done) in
-            if done {
-                tableView.reloadData()
-            } else {
-                alert(msg: "Error", handler: nil)
+    private func setupObserve() {
+        viewModel.setupObserve { (done) in
+            DispatchQueue.main.async {
+                if done {
+                    self.tableView.reloadData()
+                } else {
+                    self.alert(msg: "Error", handler: nil)
+                }
             }
         }
     }
@@ -70,7 +71,9 @@ extension FavoritesViewController: UITableViewDataSource {
       if editingStyle == .delete {
         viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
         viewModel.detailMeals.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        DispatchQueue.main.async {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
       }
     }
 }
@@ -87,13 +90,5 @@ extension FavoritesViewController: UITableViewDelegate {
         let detailRecipeVC = DetailRecipeViewController()
         detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
         navigationController?.pushViewController(detailRecipeVC, animated: true)
-    }
-}
-
-// MARK: - FavoritesViewModelDelegate
-extension FavoritesViewController: FavoritesViewModelDelegate {
-
-    func viewModel(_ viewModel: FavoritesViewModel, needperfomAction action: FavoritesViewModel.Action) {
-        fetchData()
     }
 }

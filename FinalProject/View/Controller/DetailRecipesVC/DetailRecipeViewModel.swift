@@ -60,6 +60,7 @@ final class DetailRecipeViewModel {
                 detailMeal.name = self.detailMeal?.name
                 detailMeal.thumb = self.detailMeal?.thumb
                 detailMeal.area = self.detailMeal?.area
+                detailMeal.date = Date()
                 realm.add(detailMeal)
             }
         } catch {
