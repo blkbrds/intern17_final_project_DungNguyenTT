@@ -16,11 +16,7 @@ final class DetailMealService {
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case . success(let data):
-                if let data = data as? JSObject, let items = data["meals"] as? JSArray {
-                    guard let meal = Mapper<Meal>().map(JSONObject: items.first) else {
-                        completion(.failure(Api.Error.json))
-                        return
-                    }
+                if let data = data as? JSObject, let items = data["meals"] as? JSArray, let meal = Mapper<Meal>().map(JSONObject: items.first) {
                     completion(.success(meal))
                 } else {
                     completion(.failure(Api.Error.json))
