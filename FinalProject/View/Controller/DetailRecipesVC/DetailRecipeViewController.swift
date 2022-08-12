@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YoutubePlayer_in_WKWebView
 
 final class DetailRecipeViewController: UIViewController {
 
@@ -18,6 +19,8 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var recipeLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
+    @IBOutlet private weak var playerVideoView: WKYTPlayerView!
+    @IBOutlet private weak var videoLabel: UILabel!
 
     // MARK: - Properties
     var viewModel: DetailRecipeViewModel?
@@ -33,6 +36,11 @@ final class DetailRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         title = "Recipe"
         navigationController?.isNavigationBarHidden = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        playerVideoView.stopVideo()
     }
 
     // MARK: - Private functions
@@ -63,6 +71,14 @@ final class DetailRecipeViewController: UIViewController {
             ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
+        let urlArr = meal.video?.components(separatedBy: "v=")
+        if urlArr != [""] {
+            let videoId: String = urlArr?[1] ?? ""
+            playerVideoView.load(withVideoId: videoId, playerVars: ["playsinline": "1"])
+            playerVideoView.delegate = self
+        } else {
+            videoLabel.text = "No video to watch"
+        }
     }
 
     private func getDetailMeals() {
@@ -92,11 +108,11 @@ final class DetailRecipeViewController: UIViewController {
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }
+}
 
-    @IBAction private func videoButtonTouchUpInside(_ sender: UIButton) {
-        guard let video = viewModel?.detailMeal?.video else { return }
-        let vc = VideoViewController()
-        vc.viewModel = VideoViewModel(url: video)
-        navigationController?.pushViewController(vc, animated: true)
+// MARK: - WKYTPlayerViewDelegate
+extension DetailRecipeViewController: WKYTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        playerView.playVideo()
     }
 }
