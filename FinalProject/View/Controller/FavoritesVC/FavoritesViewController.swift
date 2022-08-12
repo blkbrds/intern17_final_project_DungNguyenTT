@@ -68,13 +68,13 @@ extension FavoritesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-      if editingStyle == .delete {
-        viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
-        viewModel.detailMeals.remove(at: indexPath.row)
-        DispatchQueue.main.async {
-            tableView.deleteRows(at: [indexPath], with: .fade)
+        if editingStyle == .delete {
+            viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
+            viewModel.detailMeals.remove(at: indexPath.row)
+            DispatchQueue.main.async {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
-      }
     }
 }
 
@@ -82,7 +82,7 @@ extension FavoritesViewController: UITableViewDataSource {
 extension FavoritesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return Config.heightForRow
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,5 +90,12 @@ extension FavoritesViewController: UITableViewDelegate {
         let detailRecipeVC = DetailRecipeViewController()
         detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
         navigationController?.pushViewController(detailRecipeVC, animated: true)
+    }
+}
+
+extension FavoritesViewController {
+
+    struct Config {
+        static let heightForRow: CGFloat = 80
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 final class IngredientView: UIView {
 
-    // MARK: - IBOutletd
+    // MARK: - IBOutlets
     @IBOutlet private weak var ingredientLabel: UILabel!
     @IBOutlet private weak var measureLabel: UILabel!
 
@@ -21,7 +21,7 @@ final class IngredientView: UIView {
         }
     }
 
-    // MARK: - Privte function
+    // MARK: - Private functions
     private func updateCell() {
         guard let viewModel = viewModel else { return }
         ingredientLabel.text = viewModel.ingredient

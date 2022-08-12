@@ -10,7 +10,7 @@ import UIKit
 
 final class DetailRecipeViewController: UIViewController {
 
-    // MARK: - Properties
+    // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var favoritesButton: UIButton!
     @IBOutlet private weak var nameMealLabel: UILabel!
