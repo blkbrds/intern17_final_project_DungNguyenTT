@@ -13,7 +13,7 @@ final class DetailRecipeViewModel {
 
     // MARK: - Properties
     private(set) var detailMeal: Meal?
-    var id: String
+    private(set) var id: String
 
     init(id: String) {
         self.id = id

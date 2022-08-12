@@ -2,6 +2,7 @@ platform :ios, '13.0'
 
 target 'FinalProject' do
   use_frameworks!
+  pod "YoutubePlayer-in-WKWebView"
 
   # Architect
   pod 'MVVM-Swift', '1.1.0' # MVVM Architect for iOS Application.

@@ -90,6 +90,9 @@ Repeat with the remaining oil and beef.</string>
                                                     <real key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="videoButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="o66-Uo-M0I"/>
+                                            </connections>
                                         </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="THY-jX-RfO">
                                             <rect key="frame" x="30" y="137.5" width="364" height="36.5"/>

@@ -83,7 +83,7 @@ final class DetailRecipeViewController: UIViewController {
     }
 
     // MARK: - IBActions
-    @IBAction func favoritesButtonTouchUpInside(_ sender: UIButton) {
+    @IBAction private func favoritesButtonTouchUpInside(_ sender: UIButton) {
         guard let viewModel = viewModel else { return }
         if viewModel.checkIsFavotire() {
             viewModel.deleteFavorites()
@@ -91,5 +91,12 @@ final class DetailRecipeViewController: UIViewController {
             viewModel.addFavorites()
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
+    }
+
+    @IBAction private func videoButtonTouchUpInside(_ sender: UIButton) {
+        guard let video = viewModel?.detailMeal?.video else { return }
+        let vc = VideoViewController()
+        vc.viewModel = VideoViewModel(url: video)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
