@@ -10,6 +10,7 @@ import UIKit
 
 final class DetailRecipeViewController: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var favoritesButton: UIButton!
     @IBOutlet private weak var nameMealLabel: UILabel!
@@ -18,8 +19,10 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var areaLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
 
+    // MARK: - Properties
     var viewModel: DetailRecipeViewModel?
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -32,12 +35,12 @@ final class DetailRecipeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
     }
 
+    // MARK: - Private functions
     private func configUI() {
         detailView.clipsToBounds = true
         detailView.layer.cornerRadius = 30
         detailView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.tintColor = .black
     }
 
@@ -59,6 +62,7 @@ final class DetailRecipeViewController: UIViewController {
             ingredientStackView.distribution = .fillEqually
             ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
         }
+        favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }
 
     private func getDetailMeals() {
@@ -76,5 +80,16 @@ final class DetailRecipeViewController: UIViewController {
                 }
             }
         }
+    }
+
+    // MARK: - IBActions
+    @IBAction func favoritesButtonTouchUpInside(_ sender: UIButton) {
+        guard let viewModel = viewModel else { return }
+        if viewModel.checkIsFavotire() {
+            viewModel.deleteFavorites()
+        } else {
+            viewModel.addFavorites()
+        }
+        favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }
 }

@@ -23,8 +23,8 @@ final class HomeViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = false
+        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Config
@@ -135,9 +135,9 @@ extension HomeViewController: CategoryRecipesCellDelegate {
 
     func cell(_ cell: CategoryRecipesCell, needPerformAction action: CategoryRecipesCell.Action) {
         switch action {
-        case .loadNameMeal(let name):
+        case .loadIdMeal(let id):
             let detailRecipeVC = DetailRecipeViewController()
-            detailRecipeVC.viewModel = DetailRecipeViewModel(name: name)
+            detailRecipeVC.viewModel = DetailRecipeViewModel(id: id)
             navigationController?.pushViewController(detailRecipeVC, animated: true)
         }
     }

@@ -25,13 +25,13 @@ final class Api {
 
     struct MealPath: URLStringConvertible {
 
-        let name: String
+        let id: String
         var urlString: String {
-            return Path.searchPath + name
+            return Path.lookupPath + id
         }
 
-        init(name: String) {
-            self.name = name
+        init(id: String) {
+            self.id = id
         }
     }
 
@@ -40,6 +40,7 @@ final class Api {
         static let categoriesPath = baseURL + "categories.php"
         static let filterPath = baseURL + "filter.php?c="
         static let searchPath = baseURL + "search.php?s="
+        static let lookupPath = baseURL + "lookup.php?i="
     }
 }
 

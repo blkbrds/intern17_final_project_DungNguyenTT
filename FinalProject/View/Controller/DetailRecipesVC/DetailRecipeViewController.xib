@@ -136,6 +136,9 @@ Repeat with the remaining oil and beef.</string>
                                             <color key="value" systemColor="systemGray4Color"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="favoritesButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="XYX-mU-ahw"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

@@ -7,20 +7,17 @@
 //
 
 import Foundation
+import ObjectMapper
 
 final class DetailMealService {
 
-    class func getDetailMeal(name: String, completion: @escaping Completion<DetailMeal>) {
-        let urlString = Api.MealPath(name: name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
+    class func getDetailMeal(id: String, completion: @escaping Completion<Meal>) {
+        let urlString = Api.MealPath(id: id)
         api.request(method: .get, urlString: urlString) { result in
             switch result {
             case . success(let data):
-                if let data = data as? JSObject, let items = data["meals"] as? JSArray {
-                    guard let meal = items.first else {
-                        completion(.failure(Api.Error.json))
-                        return
-                    }
-                    completion(.success(DetailMeal(json: meal)))
+                if let data = data as? JSObject, let items = data["meals"] as? JSArray, let meal = Mapper<Meal>().map(JSONObject: items.first) {
+                    completion(.success(meal))
                 } else {
                     completion(.failure(Api.Error.json))
                 }

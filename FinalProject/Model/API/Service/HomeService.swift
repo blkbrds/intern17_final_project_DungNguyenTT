@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ObjectMapper
 
 final class HomeService {
 
@@ -38,7 +39,11 @@ final class HomeService {
                 if let data = data as? JSObject, let items = data["meals"] as? JSArray {
                     var meals: [Meal] = []
                     for item in items {
-                        meals.append(Meal(json: item))
+                        guard let meal = Mapper<Meal>().map(JSONObject: item) else {
+                            completion(.failure(Api.Error.json))
+                            return
+                        }
+                        meals.append(meal)
                     }
                     completion(.success(meals))
                 } else {

@@ -7,10 +7,95 @@
 //
 
 import UIKit
+import RealmSwift
 
-final class FavoritesViewController: UIViewController {
+final class FavoritesViewController: ViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // MARK: - IBOutlets
+    @IBOutlet private weak var tableView: UITableView!
+
+    // MARK: - Properties
+    var viewModel = FavoritesViewModel()
+
+    // MARK: - Life cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+
+    // MARK: - Config
+    override func setupUI() {
+        title = "Favorite"
+        tableView.register(FavoritesCell.self)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView()
+    }
+
+    override func setupData() {
+        setupObserve()
+    }
+
+    // MARK: - Private functions
+    private func setupObserve() {
+        viewModel.setupObserve { (done) in
+            DispatchQueue.main.async {
+                if done {
+                    self.tableView.reloadData()
+                } else {
+                    self.alert(msg: "Error", handler: nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension FavoritesViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.numberOfRowsInSection()
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue(FavoritesCell.self)
+        cell.viewModel = viewModel.viewModelForCell(at: indexPath)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
+            viewModel.detailMeals.remove(at: indexPath.row)
+            DispatchQueue.main.async {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension FavoritesViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Config.heightForRow
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let detailRecipeVC = DetailRecipeViewController()
+        detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
+        navigationController?.pushViewController(detailRecipeVC, animated: true)
+    }
+}
+
+extension FavoritesViewController {
+
+    struct Config {
+        static let heightForRow: CGFloat = 80
     }
 }
