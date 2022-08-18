@@ -36,6 +36,8 @@ final class DetailRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         title = "Recipe"
         navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.tintColor = .black
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -48,8 +50,6 @@ final class DetailRecipeViewController: UIViewController {
         detailView.clipsToBounds = true
         detailView.layer.cornerRadius = 30
         detailView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.tintColor = .black
     }
 
     private func updateView() {

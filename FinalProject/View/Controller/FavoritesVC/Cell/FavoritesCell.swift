@@ -14,7 +14,7 @@ final class FavoritesCell: UITableViewCell {
     @IBOutlet private weak var mealImageView: UIImageView!
     @IBOutlet private weak var nameMealLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
-    @IBOutlet private weak var favoritesButton: UIButton!
+    @IBOutlet weak var favoritesButton: UIButton!
 
     // MARK: - Properties
     var viewModel: FavoritesCellViewModel? {
@@ -25,11 +25,12 @@ final class FavoritesCell: UITableViewCell {
 
     // MARK: - Private functions
     private func updateCell() {
-        let urlString = viewModel?.meal.thumb.unwrapped(or: "")
-        mealImageView.downloadImage(url: urlString ?? "") { (image) in
+        guard let viewModel = viewModel else { return }
+        let urlString = viewModel.meal.thumb.unwrapped(or: "")
+        mealImageView.downloadImage(url: urlString) { (image) in
             self.mealImageView.image = image
         }
-        nameMealLabel.text = viewModel?.meal.name
-        areaLabel.text = viewModel?.meal.area
+        nameMealLabel.text = viewModel.meal.name
+        areaLabel.text = viewModel.meal.area
     }
 }

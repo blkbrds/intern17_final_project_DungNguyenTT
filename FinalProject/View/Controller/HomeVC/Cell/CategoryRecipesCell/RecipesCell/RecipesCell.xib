@@ -54,6 +54,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="foodImage" width="654" height="653"/>
+        <image name="foodImage" width="327" height="326.5"/>
     </resources>
 </document>

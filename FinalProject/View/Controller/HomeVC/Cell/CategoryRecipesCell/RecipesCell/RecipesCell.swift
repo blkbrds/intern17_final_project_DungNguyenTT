@@ -21,11 +21,6 @@ final class RecipesCell: UICollectionViewCell {
         }
     }
 
-    // MARK: - Life cycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     // MARK: - Private functions
     private func updateCell() {
         guard let viewModel = viewModel else { return }
