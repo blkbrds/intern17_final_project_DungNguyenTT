@@ -16,20 +16,23 @@ final class SearchViewController: ViewController {
 
     // MARK: - Properties
     var viewModel = SearchViewModel()
+    var searchTimer: Timer?
+    var searchText = ""
 
     // MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
 
     // MARK: - Override functions
     override func setupUI() {
         tableView.register(FavoritesCell.self)
+        tableView.register(FilterCell.self)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.showsVerticalScrollIndicator = false
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
         searchBar.showsCancelButton = true
@@ -37,9 +40,10 @@ final class SearchViewController: ViewController {
 
     // MARK: - Private functions
     private func getMeals(keyword: String) {
+        viewModel.searching = true
         viewModel.getMeals(keyword: keyword) { [weak self] result in
             guard let this = self else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.async {
                 switch result {
                 case .success:
                     this.tableView.reloadData()
@@ -59,10 +63,16 @@ extension SearchViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(FavoritesCell.self)
-        cell.viewModel = viewModel.viewModelForCell(at: indexPath)
-        cell.favoritesButton.isHidden = true
-        return cell
+        if viewModel.searching {
+            let cell = tableView.dequeue(FavoritesCell.self)
+            cell.viewModel = viewModel.viewModelForCell(at: indexPath)
+            return cell
+        } else {
+            tableView.separatorStyle = .none
+            let cell = tableView.dequeue(FilterCell.self)
+            cell.delegate = self
+            return cell
+        }
     }
 }
 
@@ -70,7 +80,11 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Config.heightForRow
+        if viewModel.searching {
+            return Config.heightForRow
+        } else {
+            return Config.heightForFilterRow
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,7 +108,32 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchTimer != nil {
+            searchTimer?.invalidate()
+            searchTimer = nil
+        }
+        self.searchText = searchText
+        searchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(searchForKeyword(_:)), userInfo: nil, repeats: false)
+    }
+
+    @objc func searchForKeyword(_ sender: Any) {
+        guard searchText.isNotEmpty else {
+            viewModel.searching = false
+            viewModel.resetMeal()
+            tableView.reloadData()
+            return
+        }
         getMeals(keyword: searchText)
+    }
+}
+
+extension SearchViewController: FilterCellDelegate {
+    func cell(_ cell: FilterCell, needPerformAction action: FilterCell.Action) {
+        switch  action {
+        case .getKeywordSearch(let keyword):
+            getMeals(keyword: keyword)
+            searchBar.text = keyword
+        }
     }
 }
 
@@ -103,5 +142,6 @@ extension SearchViewController {
 
     struct Config {
         static let heightForRow: CGFloat = 80
+        static let heightForFilterRow: CGFloat = 200
     }
 }

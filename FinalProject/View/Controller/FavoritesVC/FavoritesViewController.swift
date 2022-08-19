@@ -30,7 +30,6 @@ final class FavoritesViewController: ViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        tableView.showsVerticalScrollIndicator = false
     }
 
     override func setupData() {

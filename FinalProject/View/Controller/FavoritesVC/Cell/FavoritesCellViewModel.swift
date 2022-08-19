@@ -12,8 +12,10 @@ final class FavoritesCellViewModel {
 
     // MARK: - Properties
     private(set) var meal: Meal
+    private(set) var isHideFavoritesButton: Bool
 
-    init(meal: Meal) {
+    init(meal: Meal, isHideFavoritesButton: Bool = false) {
         self.meal = meal
+        self.isHideFavoritesButton = isHideFavoritesButton
     }
 }

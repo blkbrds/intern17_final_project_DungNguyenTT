@@ -14,7 +14,7 @@ final class FavoritesCell: UITableViewCell {
     @IBOutlet private weak var mealImageView: UIImageView!
     @IBOutlet private weak var nameMealLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
-    @IBOutlet weak var favoritesButton: UIButton!
+    @IBOutlet private weak var favoritesButton: UIButton!
 
     // MARK: - Properties
     var viewModel: FavoritesCellViewModel? {
@@ -32,5 +32,6 @@ final class FavoritesCell: UITableViewCell {
         }
         nameMealLabel.text = viewModel.meal.name
         areaLabel.text = viewModel.meal.area
+        favoritesButton.isHidden = viewModel.isHideFavoritesButton
     }
 }

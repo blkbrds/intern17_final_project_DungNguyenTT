@@ -71,9 +71,9 @@ final class DetailRecipeViewController: UIViewController {
             ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
-        let urlArr = meal.video?.components(separatedBy: "v=")
-        if urlArr != [""] {
-            let videoId: String = urlArr?[1] ?? ""
+        guard let urlArr = meal.video?.components(separatedBy: "v=") else { return }
+        if urlArr[0].isNotEmpty {
+            let videoId: String = urlArr[1]
             playerVideoView.load(withVideoId: videoId, playerVars: ["playsinline": "1"])
             playerVideoView.delegate = self
         } else {

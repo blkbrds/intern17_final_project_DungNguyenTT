@@ -12,10 +12,15 @@ final class SearchViewModel {
 
     // MARK: - Properties
     private(set) var filteredMeals: [Meal] = []
+    var searching: Bool = false
 
     // MARK: - Public functions
     func numberOfRowsInSection() -> Int {
-        return filteredMeals.count
+        if searching {
+            return filteredMeals.count
+        } else {
+            return 1
+        }
     }
 
     func getMeals(keyword: String, completion: @escaping APICompletion) {
@@ -34,7 +39,11 @@ final class SearchViewModel {
         }
     }
 
+    func resetMeal() {
+        filteredMeals = []
+    }
+
     func viewModelForCell(at indexPath: IndexPath) -> FavoritesCellViewModel {
-        return FavoritesCellViewModel(meal: filteredMeals[indexPath.row])
+        return FavoritesCellViewModel(meal: filteredMeals[indexPath.row], isHideFavoritesButton: true)
     }
 }
