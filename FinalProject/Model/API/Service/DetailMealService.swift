@@ -9,9 +9,13 @@
 import Foundation
 import ObjectMapper
 
-final class DetailMealService {
+class DetailMealService {
 
-    class func getDetailMeal(id: String, completion: @escaping Completion<Meal>) {
+    // MARK: - Singleton
+    static let shared = DetailMealService()
+
+    // MARK: - Public functions
+    func getDetailMeal(id: String, completion: @escaping Completion<Meal>) {
         let urlString = Api.MealPath(id: id)
         api.request(method: .get, urlString: urlString) { result in
             switch result {

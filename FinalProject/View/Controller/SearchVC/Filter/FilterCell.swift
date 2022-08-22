@@ -12,22 +12,26 @@ protocol FilterCellDelegate: class {
     func cell(_ cell: FilterCell, needPerformAction action: FilterCell.Action)
 }
 
-class FilterCell: UITableViewCell {
+final class FilterCell: UITableViewCell {
 
     enum Action {
         case getKeywordSearch(keyword: String)
     }
 
+    // MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
 
+    // MARK: - Properties
     var viewModel = FilterViewModel()
     weak var delegate: FilterCellDelegate?
 
+    // MARK: - Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         configCollection()
     }
 
+    // MARK: - Private functions
     private func configCollection() {
         collectionView.register(FilterByNameCell.self)
         collectionView.dataSource = self
@@ -35,7 +39,9 @@ class FilterCell: UITableViewCell {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension FilterCell: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection()
     }
@@ -55,23 +61,36 @@ extension FilterCell: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension FilterCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widthItem: CGFloat = viewModel.keywordSearch[indexPath.row].widthOfString(usingFont: UIFont.systemFont(ofSize: 17)) + 40
-        return CGSize(width: widthItem, height: 40)
+        let widthItem: CGFloat = viewModel.keywordSearch[indexPath.row].widthOfString(usingFont: UIFont.systemFont(ofSize: Config.fontSize)) + Config.distance
+        return CGSize(width: widthItem, height: Config.heightForItem)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        return Config.minimumLineSpacingForSectionAt
     }
 }
 
+// MARK: - WidthOfString
 extension String {
 
     func widthOfString(usingFont font: UIFont) -> CGFloat {
         let fontAttributes = [NSAttributedString.Key.font: font]
         let size = self.size(withAttributes: fontAttributes)
         return size.width
+    }
+}
+
+// MARK: - Config
+extension FilterCell {
+
+    struct Config {
+        static let heightForItem: CGFloat = 40
+        static let minimumLineSpacingForSectionAt: CGFloat = 15
+        static let fontSize: CGFloat = 17
+        static let distance: CGFloat = 40
     }
 }

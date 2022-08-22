@@ -9,9 +9,13 @@
 import Foundation
 import ObjectMapper
 
-final class SearchService {
+class SearchService {
 
-    class func getMeal(keyword: String, completion: @escaping Completion<[Meal]>) {
+    // MARK: - Singleton
+    static let shared = SearchService()
+
+    // MARK: - Public functions
+    func getMeal(keyword: String, completion: @escaping Completion<[Meal]>) {
         let urlString = Api.SearchByNamePath(keyword: keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
         api.request(method: .get, urlString: urlString) { result in
             switch result {

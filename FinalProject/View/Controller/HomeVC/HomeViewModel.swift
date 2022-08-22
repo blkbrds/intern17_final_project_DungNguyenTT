@@ -43,7 +43,7 @@ final class HomeViewModel {
     }
 
     func getCategory(completion: @escaping APICompletion) {
-        HomeService.getCategories { [weak self] result in
+        HomeService.shared.getCategories { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return
@@ -59,7 +59,7 @@ final class HomeViewModel {
     }
 
     func getFilterByCategories(name: String, completion: @escaping APICompletion) {
-        HomeService.getFilterCategories(category: name.isEmpty ? categories[0].name.unwrapped(or: "") : name) { [weak self] result in
+        HomeService.shared.getFilterCategories(category: name.isEmpty ? categories[0].name.unwrapped(or: "") : name) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return

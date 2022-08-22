@@ -10,6 +10,7 @@ import Foundation
 
 final class FilterByNameCellViewModel {
 
+    // MARK: - Properties
     private(set) var nameMeal: String
 
     init(nameMeal: String) {

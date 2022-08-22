@@ -24,7 +24,7 @@ final class SearchViewModel {
     }
 
     func getMeals(keyword: String, completion: @escaping APICompletion) {
-        SearchService.getMeal(keyword: keyword) { [weak self] result in
+        SearchService.shared.getMeal(keyword: keyword) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return

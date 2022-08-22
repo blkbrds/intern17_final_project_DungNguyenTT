@@ -21,7 +21,7 @@ final class DetailRecipeViewModel {
 
     // MARK: - Public functions
     func getDetailMeals(completion: @escaping APICompletion) {
-        DetailMealService.getDetailMeal(id: id) { [weak self] result in
+        DetailMealService.shared.getDetailMeal(id: id) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return

@@ -113,7 +113,7 @@ extension SearchViewController: UISearchBarDelegate {
             searchTimer = nil
         }
         self.searchText = searchText
-        searchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(searchForKeyword(_:)), userInfo: nil, repeats: false)
+        searchTimer = Timer.scheduledTimer(timeInterval: Config.timeInterval, target: self, selector: #selector(searchForKeyword(_:)), userInfo: nil, repeats: false)
     }
 
     @objc func searchForKeyword(_ sender: Any) {
@@ -127,6 +127,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - FilterCellDelegate
 extension SearchViewController: FilterCellDelegate {
     func cell(_ cell: FilterCell, needPerformAction action: FilterCell.Action) {
         switch  action {
@@ -143,5 +144,6 @@ extension SearchViewController {
     struct Config {
         static let heightForRow: CGFloat = 80
         static let heightForFilterRow: CGFloat = 200
+        static let timeInterval: TimeInterval = 0.5
     }
 }

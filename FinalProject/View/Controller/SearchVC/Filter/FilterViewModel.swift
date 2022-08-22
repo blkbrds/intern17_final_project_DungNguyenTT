@@ -10,6 +10,7 @@ import Foundation
 
 final class FilterViewModel {
 
+    // MARK: - Properties
     private(set) var keywordSearch: [String] = ["Beef", "Egg", "Fish", "Salad", "Soup",
                                                 "Cake", "Pie", "Lamb", "Chicken"]
 
