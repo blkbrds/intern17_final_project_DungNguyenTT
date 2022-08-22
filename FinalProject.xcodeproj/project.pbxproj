@@ -33,6 +33,10 @@
 		5EA18289289B6016003E20D4 /* DetailMealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA18288289B6016003E20D4 /* DetailMealService.swift */; };
 		5EA182BF289B7A8F003E20D4 /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA182BD289B7A8F003E20D4 /* AddRecipeViewController.swift */; };
 		5EA182C0289B7A8F003E20D4 /* AddRecipeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA182BE289B7A8F003E20D4 /* AddRecipeViewController.xib */; };
+		5EA1A5AC28B31B1B0068F352 /* HistorySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A5AA28B31B1B0068F352 /* HistorySearchCell.swift */; };
+		5EA1A5AD28B31B1B0068F352 /* HistorySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA1A5AB28B31B1B0068F352 /* HistorySearchCell.xib */; };
+		5EA1A5B128B31B290068F352 /* HistorySearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A5B028B31B290068F352 /* HistorySearchCellViewModel.swift */; };
+		5EA1A5B528B31B7B0068F352 /* HistorySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1A5B428B31B7B0068F352 /* HistorySearch.swift */; };
 		5EA838BC288E2E6D003017B4 /* CategoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */; };
 		5EA838C0288E2E79003017B4 /* CategoriesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */; };
 		5EA838C4288E30B8003017B4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA838C3288E30B8003017B4 /* HomeViewModel.swift */; };
@@ -125,6 +129,10 @@
 		5EA18288289B6016003E20D4 /* DetailMealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMealService.swift; sourceTree = "<group>"; };
 		5EA182BD289B7A8F003E20D4 /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		5EA182BE289B7A8F003E20D4 /* AddRecipeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRecipeViewController.xib; sourceTree = "<group>"; };
+		5EA1A5AA28B31B1B0068F352 /* HistorySearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySearchCell.swift; sourceTree = "<group>"; };
+		5EA1A5AB28B31B1B0068F352 /* HistorySearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySearchCell.xib; sourceTree = "<group>"; };
+		5EA1A5B028B31B290068F352 /* HistorySearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySearchCellViewModel.swift; sourceTree = "<group>"; };
+		5EA1A5B428B31B7B0068F352 /* HistorySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySearch.swift; sourceTree = "<group>"; };
 		5EA838BB288E2E6D003017B4 /* CategoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838BF288E2E79003017B4 /* CategoriesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellViewModel.swift; sourceTree = "<group>"; };
 		5EA838C3288E30B8003017B4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -292,6 +300,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		5EA1A5A928B31AF10068F352 /* HistorySearch */ = {
+			isa = PBXGroup;
+			children = (
+				5EA1A5AA28B31B1B0068F352 /* HistorySearchCell.swift */,
+				5EA1A5AB28B31B1B0068F352 /* HistorySearchCell.xib */,
+				5EA1A5B028B31B290068F352 /* HistorySearchCellViewModel.swift */,
+			);
+			path = HistorySearch;
+			sourceTree = "<group>";
+		};
 		5EA838E7288E7446003017B4 /* CategoryRecipesCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +324,7 @@
 		5EC172DA28AF1C8A00358350 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				5EA1A5A928B31AF10068F352 /* HistorySearch */,
 				5EC172E728AF1F3E00358350 /* Cell */,
 				5EC1730028AF277800358350 /* FilterCell.swift */,
 				5EC1730128AF277800358350 /* FilterCell.xib */,
@@ -381,6 +400,7 @@
 			children = (
 				6AF60D242313B56B00F5CBA2 /* Session.swift */,
 				6AF60D672313B56B00F5CBA2 /* API */,
+				5EA1A5B428B31B7B0068F352 /* HistorySearch.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -622,6 +642,7 @@
 				5E9C5E9128A10EA400E5F4E2 /* FavoritesCell.xib in Resources */,
 				5E0DBC75288A9F9C00DC28E9 /* CategoriesCell.xib in Resources */,
 				5EE28B6028991F8A00CA87C5 /* FavoritesViewController.xib in Resources */,
+				5EA1A5AD28B31B1B0068F352 /* HistorySearchCell.xib in Resources */,
 				5ED680C128AA3D64005D5C15 /* SearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,6 +745,7 @@
 			files = (
 				6AF60E0A2313B9C000F5CBA2 /* UIViewExt.swift in Sources */,
 				5EA838C4288E30B8003017B4 /* HomeViewModel.swift in Sources */,
+				5EA1A5AC28B31B1B0068F352 /* HistorySearchCell.swift in Sources */,
 				5E0DBC74288A9F9C00DC28E9 /* CategoriesCell.swift in Sources */,
 				5E9B9D76289CF6D80054B7D1 /* IngredientView.swift in Sources */,
 				6AF613B22313C13A00F5CBA2 /* Label.swift in Sources */,
@@ -733,6 +755,7 @@
 				5EE28B5F28991F8A00CA87C5 /* FavoritesViewController.swift in Sources */,
 				5E9C5E8A28A10E2900E5F4E2 /* FavoritesViewModel.swift in Sources */,
 				6AF613B72313C13A00F5CBA2 /* CollectionView.swift in Sources */,
+				5EA1A5B528B31B7B0068F352 /* HistorySearch.swift in Sources */,
 				5EA182BF289B7A8F003E20D4 /* AddRecipeViewController.swift in Sources */,
 				5E1C5472288F9268003CAD29 /* Categories.swift in Sources */,
 				6AFD0303231375EE004940FA /* AppDelegate.swift in Sources */,
@@ -749,6 +772,7 @@
 				5EC1730228AF277800358350 /* FilterCell.swift in Sources */,
 				5E0DBC7B288AA58400DC28E9 /* CategoryCell.swift in Sources */,
 				5E9B9D5D289CD7480054B7D1 /* RecipesCell.swift in Sources */,
+				5EA1A5B128B31B290068F352 /* HistorySearchCellViewModel.swift in Sources */,
 				5EC172F428AF200000358350 /* FilterByNameCell.swift in Sources */,
 				5EE28B4628990E0400CA87C5 /* DetailRecipeViewModel.swift in Sources */,
 				5EC172E428AF1F0A00358350 /* FilterViewModel.swift in Sources */,

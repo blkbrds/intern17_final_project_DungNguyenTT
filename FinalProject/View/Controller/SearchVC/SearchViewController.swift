@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol SearchViewControllerDelegate: class {
+    func viewControler(_ viewControler: SearchViewController, needPerformAction action: SearchViewController.Action)
+}
+
 final class SearchViewController: ViewController {
+
+    enum Action {
+        case getKeywordSearch(keyword: String)
+    }
 
     // MARK: - IBOutlets
     @IBOutlet private weak var tableView: UITableView!
@@ -18,6 +26,7 @@ final class SearchViewController: ViewController {
     var viewModel = SearchViewModel()
     var searchTimer: Timer?
     var searchText = ""
+    weak var delegate: SearchViewControllerDelegate?
 
     // MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +39,7 @@ final class SearchViewController: ViewController {
     override func setupUI() {
         tableView.register(FavoritesCell.self)
         tableView.register(FilterCell.self)
+        tableView.register(HistorySearchCell.self)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
@@ -39,9 +49,9 @@ final class SearchViewController: ViewController {
     }
 
     // MARK: - Private functions
-    private func getMeals(keyword: String) {
+    private func getMeals() {
         viewModel.searching = true
-        viewModel.getMeals(keyword: keyword) { [weak self] result in
+        viewModel.getMeals { [weak self] result in
             guard let this = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -53,13 +63,33 @@ final class SearchViewController: ViewController {
             }
         }
     }
+
+    override func setupData() {
+        setupObserve()
+    }
+
+    private func setupObserve() {
+        viewModel.setupObserve { (done) in
+            DispatchQueue.main.async {
+                if done {
+                    self.tableView.reloadData()
+                } else {
+                    self.alert(msg: "Error", handler: nil)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.numberOfSections()
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return viewModel.numberOfRowsInSection()
+        return viewModel.numberOfRowsInSection(in: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,10 +98,17 @@ extension SearchViewController: UITableViewDataSource {
             cell.viewModel = viewModel.viewModelForCell(at: indexPath)
             return cell
         } else {
-            tableView.separatorStyle = .none
-            let cell = tableView.dequeue(FilterCell.self)
-            cell.delegate = self
-            return cell
+            switch indexPath.section {
+            case 0:
+                let cell = tableView.dequeue(FilterCell.self)
+                cell.delegate = self
+                return cell
+            default:
+                let cell = tableView.dequeue(HistorySearchCell.self)
+                cell.viewModel = viewModel.getHistory(at: indexPath)
+                cell.delegate = self
+                return cell
+            }
         }
     }
 }
@@ -80,18 +117,19 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if viewModel.searching {
-            return Config.heightForRow
-        } else {
-            return Config.heightForFilterRow
-        }
+        return viewModel.heightForRow(at: indexPath)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let detailRecipeVC = DetailRecipeViewController()
-        detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.filteredMeals[indexPath.row].id.unwrapped(or: ""))
-        navigationController?.pushViewController(detailRecipeVC, animated: true)
+        if viewModel.searching {
+            tableView.deselectRow(at: indexPath, animated: true)
+            let detailRecipeVC = DetailRecipeViewController()
+            detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.filteredMeals[indexPath.row].id.unwrapped(or: ""))
+            navigationController?.pushViewController(detailRecipeVC, animated: true)
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            delegate?.viewControler(self, needPerformAction: .getKeywordSearch(keyword: viewModel.history[indexPath.row].keyword))
+        }
     }
 }
 
@@ -103,7 +141,12 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        getMeals(keyword: searchBar.text ?? "")
+        viewModel.keyword = searchBar.text ?? ""
+        getMeals()
+        let checkIsHistorySearch = viewModel.checkIsHistorySearch()
+        if checkIsHistorySearch == false {
+            viewModel.saveHistorySearch()
+        }
         searchBar.resignFirstResponder()
     }
 
@@ -123,7 +166,8 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
             return
         }
-        getMeals(keyword: searchText)
+        viewModel.keyword = searchText
+        getMeals()
     }
 }
 
@@ -132,7 +176,34 @@ extension SearchViewController: FilterCellDelegate {
     func cell(_ cell: FilterCell, needPerformAction action: FilterCell.Action) {
         switch  action {
         case .getKeywordSearch(let keyword):
-            getMeals(keyword: keyword)
+            viewModel.keyword = keyword
+            getMeals()
+            searchBar.text = keyword
+        }
+    }
+}
+
+// MARK: - HistorySearchCellDelegate
+extension SearchViewController: HistorySearchCellDelegate {
+    func cell(_ cell: HistorySearchCell, needPerformAction action: HistorySearchCell.Action) {
+        switch action {
+        case .deleteHistory(let key):
+            guard let indexPath = tableView.indexPath(for: cell) else { return }
+            viewModel.deleteHistorySearch(key: key)
+            viewModel.history.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+
+// MARK: - SearchViewControllerDelegate
+extension SearchViewController: SearchViewControllerDelegate {
+
+    func viewControler(_ viewControler: SearchViewController, needPerformAction action: Action) {
+        switch action {
+        case .getKeywordSearch(let keyword):
+            viewModel.keyword = keyword
+            getMeals()
             searchBar.text = keyword
         }
     }
@@ -142,8 +213,6 @@ extension SearchViewController: FilterCellDelegate {
 extension SearchViewController {
 
     struct Config {
-        static let heightForRow: CGFloat = 80
-        static let heightForFilterRow: CGFloat = 200
         static let timeInterval: TimeInterval = 0.5
     }
 }
