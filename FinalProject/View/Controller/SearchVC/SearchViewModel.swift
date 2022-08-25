@@ -81,7 +81,7 @@ final class SearchViewModel {
     }
 
     func resetMeal() {
-        filteredMeals = []
+        filteredMeals.removeAll()
     }
 
     func viewModelForCell(at indexPath: IndexPath) -> FavoritesCellViewModel {
