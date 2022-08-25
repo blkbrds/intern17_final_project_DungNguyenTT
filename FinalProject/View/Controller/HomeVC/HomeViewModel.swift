@@ -22,10 +22,6 @@ final class HomeViewModel {
     var name: String = ""
 
     // MARK: - Functions
-    func numberOfSections() -> Int {
-        return 1
-    }
-
     func numberOfRowsInSection() -> Int {
         return RowType.allCases.count
     }
@@ -43,7 +39,7 @@ final class HomeViewModel {
     }
 
     func getCategory(completion: @escaping APICompletion) {
-        HomeService.shared.getCategories { [weak self] result in
+        HomeService.getCategories { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return
@@ -59,7 +55,7 @@ final class HomeViewModel {
     }
 
     func getFilterByCategories(name: String, completion: @escaping APICompletion) {
-        HomeService.shared.getFilterCategories(category: name.isEmpty ? categories[0].name.unwrapped(or: "") : name) { [weak self] result in
+        HomeService.getFilterCategories(category: name.isEmpty ? categories[0].name.unwrapped(or: "") : name) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return

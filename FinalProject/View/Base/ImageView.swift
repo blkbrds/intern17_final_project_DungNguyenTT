@@ -20,12 +20,6 @@ extension UIImageView {
             return
         }
         kf.indicatorType = .activity
-        kf.setImage(with: url,
-                    placeholder: nil,
-                    options: [
-                        .scaleFactor(UIScreen.main.scale),
-                        .transition(.fade(1)),
-                        .cacheOriginalImage
-                    ])
+        kf.setImage(with: url)
     }
 }

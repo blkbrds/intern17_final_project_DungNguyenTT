@@ -11,11 +11,8 @@ import ObjectMapper
 
 class HomeService {
 
-    // MARK: - Singleton
-    static let shared = HomeService()
-
     // MARK: - Public functions
-    func getCategories(completion: @escaping Completion<[Categories]>) {
+    static func getCategories(completion: @escaping Completion<[Categories]>) {
         let urlString = Api.Path.categoriesPath
         api.request(method: .get, urlString: urlString) { result in
             switch result {
@@ -35,7 +32,7 @@ class HomeService {
         }
     }
 
-    func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
+    static func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
         let urlString = Api.CategoryPath(name: category)
         api.request(method: .get, urlString: urlString) { result in
             switch result {

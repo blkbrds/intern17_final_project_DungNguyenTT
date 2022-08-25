@@ -11,11 +11,8 @@ import ObjectMapper
 
 class SearchService {
 
-    // MARK: - Singleton
-    static let shared = SearchService()
-
     // MARK: - Public functions
-    func getMeal(keyword: String, completion: @escaping Completion<[Meal]>) {
+    static func getMeal(keyword: String, completion: @escaping Completion<[Meal]>) {
         let urlString = Api.SearchByNamePath(keyword: keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
         api.request(method: .get, urlString: urlString) { result in
             switch result {

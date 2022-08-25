@@ -11,15 +11,12 @@ import ObjectMapper
 
 class DetailMealService {
 
-    // MARK: - Singleton
-    static let shared = DetailMealService()
-
     // MARK: - Public functions
-    func getDetailMeal(id: String, completion: @escaping Completion<Meal>) {
+    static func getDetailMeal(id: String, completion: @escaping Completion<Meal>) {
         let urlString = Api.MealPath(id: id)
         api.request(method: .get, urlString: urlString) { result in
             switch result {
-            case . success(let data):
+            case .success(let data):
                 if let data = data as? JSObject, let items = data["meals"] as? JSArray, let meal = Mapper<Meal>().map(JSONObject: items.first) {
                     completion(.success(meal))
                 } else {

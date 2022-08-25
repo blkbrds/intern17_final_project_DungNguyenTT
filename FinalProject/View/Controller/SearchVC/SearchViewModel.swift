@@ -11,7 +11,7 @@ import RealmSwift
 
 final class SearchViewModel {
 
-    enum TypeSection: Int {
+    enum TypeSection: Int, CaseIterable {
         case sectionFilter = 0
         case sectionHistory
     }
@@ -27,7 +27,7 @@ final class SearchViewModel {
         if searching {
             return 1
         } else {
-            return 2
+            return TypeSection.allCases.count
         }
     }
 
@@ -65,7 +65,7 @@ final class SearchViewModel {
     }
 
     func getMeals(completion: @escaping APICompletion) {
-        SearchService.shared.getMeal(keyword: keyword) { [weak self] result in
+        SearchService.getMeal(keyword: keyword) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return
@@ -105,7 +105,7 @@ final class SearchViewModel {
                 }
             })
         } catch {
-            print(error)
+            completion(false)
         }
     }
 
@@ -126,33 +126,34 @@ final class SearchViewModel {
             let results = realm.objects(HistorySearch.self).first(where: { $0.keyword == keyword })
             return results != nil
         } catch {
-            print(error)
             return false
         }
     }
 
-    func saveHistorySearch() {
+    func saveHistorySearch(completion: @escaping APICompletion) {
         do {
             let realm = try Realm()
             try realm.write {
                 let historySearch = HistorySearch()
                 historySearch.keyword = keyword
                 realm.add(historySearch)
+                completion(.success)
             }
         } catch {
-            print(error)
+            completion(.failure(error))
         }
     }
 
-    func deleteHistorySearch(key: String) {
+    func deleteHistorySearch(key: String, completion: @escaping APICompletion) {
         do {
             let realm = try Realm()
             guard let results = realm.objects(HistorySearch.self).first(where: { $0.keyword == key }) else { return }
             try realm.write {
                 realm.delete(results)
+                completion(.success)
             }
         } catch {
-            print(error)
+            completion(.failure(error))
         }
     }
 }

@@ -102,9 +102,25 @@ final class DetailRecipeViewController: UIViewController {
     @IBAction private func favoritesButtonTouchUpInside(_ sender: UIButton) {
         guard let viewModel = viewModel else { return }
         if viewModel.checkIsFavotire() {
-            viewModel.deleteFavorites()
+            viewModel.deleteFavorites { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         } else {
-            viewModel.addFavorites()
+            viewModel.addFavorites { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
     }

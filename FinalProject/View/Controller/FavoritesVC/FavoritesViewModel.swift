@@ -33,7 +33,7 @@ final class FavoritesViewModel {
                 }
             })
         } catch {
-            print(error)
+            completion(false)
         }
     }
 
@@ -52,15 +52,16 @@ final class FavoritesViewModel {
         return FavoritesCellViewModel(meal: detailMeals[indexPath.row])
     }
 
-    func deleteMealInRealm(id: String) {
+    func deleteMealInRealm(id: String, completion: @escaping APICompletion) {
         do {
             let realm = try Realm()
             guard let results = realm.objects(Meal.self).first(where: { $0.id == id }) else { return }
             try realm.write {
                 realm.delete(results)
+                completion(.success)
             }
         } catch {
-            print(error)
+            completion(.failure(error))
         }
     }
 }

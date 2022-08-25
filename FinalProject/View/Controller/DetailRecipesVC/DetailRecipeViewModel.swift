@@ -21,7 +21,7 @@ final class DetailRecipeViewModel {
 
     // MARK: - Public functions
     func getDetailMeals(completion: @escaping APICompletion) {
-        DetailMealService.shared.getDetailMeal(id: id) { [weak self] result in
+        DetailMealService.getDetailMeal(id: id) { [weak self] result in
             guard let this = self else {
                 completion(.failure(Api.Error.unexpectIssued))
                 return
@@ -46,12 +46,11 @@ final class DetailRecipeViewModel {
             let results = realm.objects(Meal.self).first(where: { $0.id == id })
             return results != nil
         } catch {
-            print(error)
             return false
         }
     }
 
-    func addFavorites() {
+    func addFavorites(completion: @escaping APICompletion) {
         do {
             let realm = try Realm()
             try realm.write {
@@ -62,21 +61,23 @@ final class DetailRecipeViewModel {
                 detailMeal.area = self.detailMeal?.area
                 detailMeal.date = Date()
                 realm.add(detailMeal)
+                completion(.success)
             }
         } catch {
-            print("Error")
+            completion(.failure(error))
         }
     }
 
-    func deleteFavorites() {
+    func deleteFavorites(completion: @escaping APICompletion) {
         do {
             let realm = try Realm()
             guard let results = realm.objects(Meal.self).first(where: { $0.id == id }) else { return }
             try realm.write {
                 realm.delete(results)
+                completion(.success)
             }
         } catch {
-            print(error)
+            completion(.failure(error))
         }
     }
 }

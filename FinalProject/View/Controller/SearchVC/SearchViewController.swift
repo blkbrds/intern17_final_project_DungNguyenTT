@@ -8,15 +8,7 @@
 
 import UIKit
 
-protocol SearchViewControllerDelegate: class {
-    func viewControler(_ viewControler: SearchViewController, needPerformAction action: SearchViewController.Action)
-}
-
 final class SearchViewController: ViewController {
-
-    enum Action {
-        case getKeywordSearch(keyword: String)
-    }
 
     // MARK: - IBOutlets
     @IBOutlet private weak var tableView: UITableView!
@@ -26,7 +18,6 @@ final class SearchViewController: ViewController {
     var viewModel = SearchViewModel()
     var searchTimer: Timer?
     var searchText = ""
-    weak var delegate: SearchViewControllerDelegate?
 
     // MARK: - Life cycle
     override func viewWillAppear(_ animated: Bool) {
@@ -50,9 +41,11 @@ final class SearchViewController: ViewController {
 
     // MARK: - Private functions
     private func getMeals() {
-        viewModel.searching = true
+        HUD.show()
         viewModel.getMeals { [weak self] result in
+            HUD.dismiss()
             guard let this = self else { return }
+            this.viewModel.searching = true
             DispatchQueue.main.async {
                 switch result {
                 case .success:
@@ -69,12 +62,13 @@ final class SearchViewController: ViewController {
     }
 
     private func setupObserve() {
-        viewModel.setupObserve { (done) in
+        viewModel.setupObserve { [weak self] done in
+            guard let this = self else { return }
             DispatchQueue.main.async {
                 if done {
-                    self.tableView.reloadData()
+                    this.tableView.reloadData()
                 } else {
-                    self.alert(msg: "Error", handler: nil)
+                    this.alert(msg: "Error setup observe", handler: nil)
                 }
             }
         }
@@ -102,6 +96,7 @@ extension SearchViewController: UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeue(FilterCell.self)
                 cell.delegate = self
+                cell.selectionStyle = .none
                 return cell
             default:
                 let cell = tableView.dequeue(HistorySearchCell.self)
@@ -121,14 +116,17 @@ extension SearchViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if viewModel.searching {
-            tableView.deselectRow(at: indexPath, animated: true)
             let detailRecipeVC = DetailRecipeViewController()
             detailRecipeVC.viewModel = DetailRecipeViewModel(id: viewModel.filteredMeals[indexPath.row].id.unwrapped(or: ""))
             navigationController?.pushViewController(detailRecipeVC, animated: true)
         } else {
-            tableView.deselectRow(at: indexPath, animated: true)
-            delegate?.viewControler(self, needPerformAction: .getKeywordSearch(keyword: viewModel.history[indexPath.row].keyword))
+            if indexPath.section == 1 {
+                viewModel.keyword = viewModel.history[indexPath.row].keyword
+                getMeals()
+                searchBar.text = viewModel.history[indexPath.row].keyword
+            }
         }
     }
 }
@@ -145,7 +143,15 @@ extension SearchViewController: UISearchBarDelegate {
         getMeals()
         let checkIsHistorySearch = viewModel.checkIsHistorySearch()
         if checkIsHistorySearch == false {
-            viewModel.saveHistorySearch()
+            viewModel.saveHistorySearch { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         }
         searchBar.resignFirstResponder()
     }
@@ -189,22 +195,16 @@ extension SearchViewController: HistorySearchCellDelegate {
         switch action {
         case .deleteHistory(let key):
             guard let indexPath = tableView.indexPath(for: cell) else { return }
-            viewModel.deleteHistorySearch(key: key)
-            viewModel.history.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-}
-
-// MARK: - SearchViewControllerDelegate
-extension SearchViewController: SearchViewControllerDelegate {
-
-    func viewControler(_ viewControler: SearchViewController, needPerformAction action: Action) {
-        switch action {
-        case .getKeywordSearch(let keyword):
-            viewModel.keyword = keyword
-            getMeals()
-            searchBar.text = keyword
+            viewModel.deleteHistorySearch(key: key) { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    this.viewModel.history.remove(at: indexPath.row)
+                    this.tableView.deleteRows(at: [indexPath], with: .fade)
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         }
     }
 }
