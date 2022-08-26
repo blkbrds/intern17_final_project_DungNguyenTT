@@ -28,7 +28,6 @@ final class Meal: Object, Mappable {
 
     convenience required init(map: Map) {
         self.init()
-        self.mapping(map: map)
     }
 
     func mapping(map: Map) {

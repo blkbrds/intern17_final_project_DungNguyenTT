@@ -9,9 +9,10 @@
 import Foundation
 import ObjectMapper
 
-final class HomeService {
+class HomeService {
 
-    class func getCategories(completion: @escaping Completion<[Categories]>) {
+    // MARK: - Public functions
+    static func getCategories(completion: @escaping Completion<[Categories]>) {
         let urlString = Api.Path.categoriesPath
         api.request(method: .get, urlString: urlString) { result in
             switch result {
@@ -31,7 +32,7 @@ final class HomeService {
         }
     }
 
-    class func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
+    static func getFilterCategories(category: String, completion: @escaping Completion<[Meal]>) {
         let urlString = Api.CategoryPath(name: category)
         api.request(method: .get, urlString: urlString) { result in
             switch result {

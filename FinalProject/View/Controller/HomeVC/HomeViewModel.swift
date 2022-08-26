@@ -12,8 +12,7 @@ final class HomeViewModel {
 
     // MARK: - Defines
     enum RowType: Int, CaseIterable {
-        case searchCell = 0
-        case categoriesCell
+        case categoriesCell = 0
         case recipesCell
     }
 
@@ -23,10 +22,6 @@ final class HomeViewModel {
     var name: String = ""
 
     // MARK: - Functions
-    func numberOfSections() -> Int {
-        return 1
-    }
-
     func numberOfRowsInSection() -> Int {
         return RowType.allCases.count
     }
@@ -36,8 +31,6 @@ final class HomeViewModel {
             return 0
         }
         switch type {
-        case .searchCell:
-            return Config.heightForSearch
         case .categoriesCell:
             return Config.heightForCategoties
         case . recipesCell:
@@ -96,8 +89,7 @@ final class HomeViewModel {
 extension HomeViewModel {
 
     struct Config {
-        static let heightForSearch: Int = 130
-        static let heightForCategoties: Int = 120
-        static let heightForRecipes: Int = Int(screenHeight) - 130 - 120 - 20
+        static let heightForCategoties: Int = Int(((screenWidth - 20) / 5) * 7 / 5) + 10
+        static let heightForRecipes: Int = Int(screenHeight) - heightForCategoties - (Int(screenHeight) / 10)
     }
 }

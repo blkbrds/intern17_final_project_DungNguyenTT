@@ -38,12 +38,13 @@ final class FavoritesViewController: ViewController {
 
     // MARK: - Private functions
     private func setupObserve() {
-        viewModel.setupObserve { (done) in
+        viewModel.setupObserve { [weak self] done in
+            guard let this = self else { return }
             DispatchQueue.main.async {
                 if done {
-                    self.tableView.reloadData()
+                    this.tableView.reloadData()
                 } else {
-                    self.alert(msg: "Error", handler: nil)
+                    this.alert(msg: "Error setup observe", handler: nil)
                 }
             }
         }
@@ -63,16 +64,19 @@ extension FavoritesViewController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: ""))
-            viewModel.detailMeals.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            viewModel.deleteMealInRealm(id: viewModel.detailMeals[indexPath.row].id.unwrapped(or: "")) { [weak self] result in
+                guard let this = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        this.viewModel.detailMeals.remove(at: indexPath.row)
+                        this.tableView.deleteRows(at: [indexPath], with: .fade)
+                    case .failure(let error):
+                        this.alert(msg: error.localizedDescription, handler: nil)
+                    }
+                }
             }
         }
     }

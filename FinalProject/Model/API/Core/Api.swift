@@ -35,6 +35,18 @@ final class Api {
         }
     }
 
+    struct SearchByNamePath: URLStringConvertible {
+
+        let keyword: String
+        var urlString: String {
+            return Path.searchPath + keyword
+        }
+
+        init(keyword: String) {
+            self.keyword = keyword
+        }
+    }
+
     struct Path {
         static let baseURL = "https://www.themealdb.com/api/json/v1/1/"
         static let categoriesPath = baseURL + "categories.php"

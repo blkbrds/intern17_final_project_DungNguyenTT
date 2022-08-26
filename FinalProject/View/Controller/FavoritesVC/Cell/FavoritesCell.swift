@@ -25,11 +25,13 @@ final class FavoritesCell: UITableViewCell {
 
     // MARK: - Private functions
     private func updateCell() {
-        let urlString = viewModel?.meal.thumb.unwrapped(or: "")
-        mealImageView.downloadImage(url: urlString ?? "") { (image) in
+        guard let viewModel = viewModel else { return }
+        let urlString = viewModel.meal.thumb.unwrapped(or: "")
+        mealImageView.downloadImage(url: urlString) { (image) in
             self.mealImageView.image = image
         }
-        nameMealLabel.text = viewModel?.meal.name
-        areaLabel.text = viewModel?.meal.area
+        nameMealLabel.text = viewModel.meal.name
+        areaLabel.text = viewModel.meal.area
+        favoritesButton.isHidden = viewModel.isHideFavoritesButton
     }
 }

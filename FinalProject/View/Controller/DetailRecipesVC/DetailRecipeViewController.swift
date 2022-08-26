@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YoutubePlayer_in_WKWebView
 
 final class DetailRecipeViewController: UIViewController {
 
@@ -18,6 +19,8 @@ final class DetailRecipeViewController: UIViewController {
     @IBOutlet private weak var recipeLabel: UILabel!
     @IBOutlet private weak var areaLabel: UILabel!
     @IBOutlet private weak var detailView: UIView!
+    @IBOutlet private weak var playerVideoView: WKYTPlayerView!
+    @IBOutlet private weak var videoLabel: UILabel!
 
     // MARK: - Properties
     var viewModel: DetailRecipeViewModel?
@@ -33,6 +36,13 @@ final class DetailRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         title = "Recipe"
         navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.tintColor = .black
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        playerVideoView.stopVideo()
     }
 
     // MARK: - Private functions
@@ -40,8 +50,6 @@ final class DetailRecipeViewController: UIViewController {
         detailView.clipsToBounds = true
         detailView.layer.cornerRadius = 30
         detailView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.tintColor = .black
     }
 
     private func updateView() {
@@ -63,6 +71,14 @@ final class DetailRecipeViewController: UIViewController {
             ingredientStackView.addArrangedSubview(ingredientCustomView ?? UIView())
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
+        guard let urlArr = meal.video?.components(separatedBy: "v=") else { return }
+        if urlArr[0].isNotEmpty {
+            let videoId: String = urlArr[1]
+            playerVideoView.load(withVideoId: videoId, playerVars: ["playsinline": "1"])
+            playerVideoView.delegate = self
+        } else {
+            videoLabel.text = "No video to watch"
+        }
     }
 
     private func getDetailMeals() {
@@ -83,13 +99,36 @@ final class DetailRecipeViewController: UIViewController {
     }
 
     // MARK: - IBActions
-    @IBAction func favoritesButtonTouchUpInside(_ sender: UIButton) {
+    @IBAction private func favoritesButtonTouchUpInside(_ sender: UIButton) {
         guard let viewModel = viewModel else { return }
         if viewModel.checkIsFavotire() {
-            viewModel.deleteFavorites()
+            viewModel.deleteFavorites { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         } else {
-            viewModel.addFavorites()
+            viewModel.addFavorites { [weak self] result in
+                guard let this = self else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    this.alert(msg: error.localizedDescription, handler: nil)
+                }
+            }
         }
         favoritesButton.backgroundColor = viewModel.checkIsFavotire() ? UIColor.yellow : UIColor.white
+    }
+}
+
+// MARK: - WKYTPlayerViewDelegate
+extension DetailRecipeViewController: WKYTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        playerView.playVideo()
     }
 }
